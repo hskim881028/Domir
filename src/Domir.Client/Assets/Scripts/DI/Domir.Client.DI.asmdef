@@ -1,0 +1,19 @@
+{
+    "name": "Domir.Client.DI",
+    "rootNamespace": "Domir.Client",
+    "references": [
+        "GUID:350d0af80fb7b7947a59de66ab477547",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:a51a9bc71a0eb32438fecaf03e24a83d",
+        "Domir.Client.SceneManagement"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
