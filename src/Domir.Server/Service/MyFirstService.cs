@@ -2,7 +2,7 @@
 using MagicOnion;
 using MagicOnion.Server;
 
-namespace Domir.Server.Services;
+namespace Domir.Server.Service;
 
 public class MyFirstService : ServiceBase<IMyFirstService>, IMyFirstService
 {

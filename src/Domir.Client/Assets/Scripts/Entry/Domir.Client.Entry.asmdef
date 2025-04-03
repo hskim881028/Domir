@@ -1,14 +1,11 @@
 {
-    "name": "Domir.Client.DI",
+    "name": "Domir.Client.Entry",
     "rootNamespace": "Domir.Client",
     "references": [
-        "GUID:350d0af80fb7b7947a59de66ab477547",
         "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
-        "GUID:a51a9bc71a0eb32438fecaf03e24a83d",
-        "Domir.Client.SceneManagement",
-        "Domir.Client.Network",
         "Domir.Client.Service",
-        "Domir.Client.Entry"
+        "GUID:018b0bb14470b414cbde05f0601b1ace",
+        "GUID:a51a9bc71a0eb32438fecaf03e24a83d"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

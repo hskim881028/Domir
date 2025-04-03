@@ -3,7 +3,7 @@ using Grpc.Net.Client;
 using MagicOnion.Unity;
 using UnityEngine;
 
-namespace Domir.Client.MagicOnion
+namespace Domir.Client.Network
 {
     public class MagicOnionInitializer
     {

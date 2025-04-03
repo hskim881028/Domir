@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: DI.Application
+    TypeName: Domir.Client.DI.ApplicationLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
 --- !u!4 &819775120

@@ -1,3 +1,6 @@
+using Domir.Server.UseCase;
+using Domir.Server.UseCase.Implementation;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -24,6 +27,8 @@ builder.Services.AddSwaggerGen(options =>
     // // Add JWT security scheme to Swagger. 
     // options.AddJwtSecurityScheme();
 });
+
+builder.Services.AddSingleton<ILoginUseCase, LoginUseCase>();
 
 var app = builder.Build();
 app.UseSwagger();
