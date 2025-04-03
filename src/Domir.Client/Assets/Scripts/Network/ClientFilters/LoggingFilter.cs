@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Domir.Client.Core;
+using Domir.Client.Infrastructure;
 using MagicOnion.Client;
 
-namespace Domir.Client.Network.ClientFilter
+namespace Domir.Client.Network.ClientFilters
 {
     public class LoggingFilter : IClientFilter
     {

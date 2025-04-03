@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Domir.Client.Core
+namespace Domir.Client.Infrastructure
 {
     public static class JsonHelper
     {

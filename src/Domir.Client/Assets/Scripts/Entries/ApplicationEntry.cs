@@ -1,8 +1,8 @@
 ﻿using Domir.Client.SceneManagement;
-using Domir.Client.Service;
+using Domir.Client.Services;
 using VContainer.Unity;
 
-namespace Domir.Client.Entry
+namespace Domir.Client.Entries
 {
     public class ApplicationEntry : IStartable
     {

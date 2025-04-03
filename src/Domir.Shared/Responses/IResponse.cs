@@ -2,6 +2,6 @@
 {
     public interface IResponse
     {
-        public ushort ResponseCode { get; set; }
+        public ushort StatusCode { get; set; }
     }
 }

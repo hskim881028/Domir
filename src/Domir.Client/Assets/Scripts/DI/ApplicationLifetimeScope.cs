@@ -1,8 +1,8 @@
-using Domir.Client.Entry;
+using Domir.Client.Entries;
 using Domir.Client.Network;
-using Domir.Client.Network.ClientFilter;
+using Domir.Client.Network.ClientFilters;
 using Domir.Client.SceneManagement;
-using Domir.Client.Service;
+using Domir.Client.Services;
 using MagicOnion.Client;
 using VContainer;
 using VContainer.Unity;

@@ -1,8 +1,9 @@
 ﻿using Cysharp.Text;
+using Domir.Shared.Common;
 using MagicOnion.Client;
 using UnityEngine;
 
-namespace Domir.Client.Core
+namespace Domir.Client.Infrastructure
 {
     public static class ZLog
     {
@@ -11,7 +12,12 @@ namespace Domir.Client.Core
 #if UNITY_EDITOR
             if (!Debug.isDebugBuild) return;
 
-            Debug.Log(BuildRequestLog(requestContext));
+            using var sb = ZString.CreateStringBuilder();
+            sb.Append("<color=#4FC3F7>[Req]</color> ");
+            sb.Append(requestContext.MethodPath);
+            sb.Append("\n");
+            sb.Append(JsonHelper.ExtractKey(requestContext, "Request"));
+            Debug.Log(sb.ToString());
 #endif
         }
 
@@ -20,22 +26,6 @@ namespace Domir.Client.Core
 #if UNITY_EDITOR
             if (!Debug.isDebugBuild) return;
 
-            Debug.Log(BuildResponseLog(methodPath, elapsed, responseContext));
-#endif
-        }
-
-        private static string BuildRequestLog(RequestContext requestContext)
-        {
-            using var sb = ZString.CreateStringBuilder();
-            sb.Append("<color=#4FC3F7>[Req]</color> ");
-            sb.Append(requestContext.MethodPath);
-            sb.Append("\n");
-            sb.Append(JsonHelper.ExtractKey(requestContext, "Request"));
-            return sb.ToString();
-        }
-
-        private static string BuildResponseLog(string methodPath, double elapsed, ResponseContext responseContext)
-        {
             using var sb = ZString.CreateStringBuilder();
             sb.Append("<color=#81C784>[Res]</color> ");
             sb.Append(methodPath);
@@ -44,12 +34,28 @@ namespace Domir.Client.Core
             sb.Append(elapsed.ToString("0.0"));
             sb.Append("</color>ms)\n");
             sb.Append(JsonHelper.ExtractNestedKey(responseContext, "ResponseAsync", "Result"));
-            return sb.ToString();
+            Debug.Log(sb.ToString());
+#endif
         }
 
-        private static string GetElapsedColor(double elapsed) =>
-            elapsed <= 300 ? "<color=#81C784>" :
-            elapsed <= 800 ? "<color=#FFD54F>" :
-            "<color=#E57373>";
+        public static void StatusCodeException(int code)
+        {
+#if UNITY_EDITOR
+            if (!Debug.isDebugBuild) return;
+
+            using var sb = ZString.CreateStringBuilder();
+            sb.Append("<color=#FF5252>[Err]</color> ");
+            Debug.Log(StatusCodeMapper.ToMessage(code));
+            sb.Append("</color>)");
+#endif
+        }
+
+
+        private static string GetElapsedColor(double elapsed)
+        {
+            return elapsed <= 300 ? "<color=#81C784>" :
+                elapsed <= 800 ? "<color=#FFD54F>" :
+                "<color=#E57373>";
+        }
     }
 }

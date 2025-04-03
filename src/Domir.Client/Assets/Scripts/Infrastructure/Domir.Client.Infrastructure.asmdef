@@ -1,12 +1,8 @@
 {
-  "name": "Domir.Client.Network",
+  "name": "Domir.Client.Infrastructure",
   "rootNamespace": "Domir.Client",
   "references": [
-    "MagicOnion.Unity",
-    "Cysharp.Net.Http.YetAnotherHttpHandler",
-    "Domir.Client.Core",
-    "Domir.Shared.Client",
-    "Domir.Client.Infrastructure"
+    "GUID:a51a9bc71a0eb32438fecaf03e24a83d"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

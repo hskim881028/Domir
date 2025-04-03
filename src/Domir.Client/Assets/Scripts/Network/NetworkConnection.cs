@@ -1,5 +1,5 @@
 ﻿using System;
-using Domir.Client.Network.ClientFilter;
+using Domir.Client.Network.ClientFilters;
 using Domir.Shared.Response;
 using MagicOnion;
 using MagicOnion.Client;
@@ -8,8 +8,8 @@ namespace Domir.Client.Network
 {
     public class NetworkConnection : INetworkConnection
     {
-        private readonly IResponseHandler _responseHandler;
         private readonly IClientFilter[] _clientFilters = new IClientFilter[2];
+        private readonly IResponseHandler _responseHandler;
 
         private GrpcChannelx _channel;
 

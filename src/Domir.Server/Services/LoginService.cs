@@ -1,10 +1,10 @@
-﻿using Domir.Server.UseCase;
+﻿using Domir.Server.UseCases.Login;
 using Domir.Shared.Response;
-using Domir.Shared.Service;
+using Domir.Shared.Services;
 using MagicOnion;
 using MagicOnion.Server;
 
-namespace Domir.Server.Service;
+namespace Domir.Server.Services;
 
 public class LoginService(ILoginUseCase loginUseCase) : ServiceBase<ILoginService>, ILoginService
 {
@@ -13,9 +13,12 @@ public class LoginService(ILoginUseCase loginUseCase) : ServiceBase<ILoginServic
         var num = await loginUseCase.Test();
         var response = new LoginResponse
         {
-            ResponseCode = 777,
-            TEST = num,
-            TESTTTTTTT = "ekwljrwlkejrewoi"
+            StatusCode = 0,
+            Token = Guid.NewGuid().ToString(),
+            UserId = num.ToString(),
+            Username = "tester",
+            IsNewUser = true,
+            LastLoginAt = DateTime.UtcNow,
         };
         return response;
     }

@@ -1,21 +1,20 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using Domir.Client.Service;
-using Domir.Shared;
-using Domir.Shared.Service;
+using Domir.Client.Services;
+using Domir.Shared.Services;
 using UnityEngine;
 using VContainer.Unity;
 
-namespace Domir.Client.Entry
+namespace Domir.Client.Entries
 {
     public class LobbyEntry : IStartable
     {
-        private readonly Lazy<IMyFirstService> _myFirstService;
         private readonly Lazy<ILoginService> _loginService;
+        private readonly NetworkService _networkService;
 
         public LobbyEntry(NetworkService networkService)
         {
-            _myFirstService = networkService.CreateService<IMyFirstService>();
+            _networkService = networkService;
             _loginService = networkService.CreateService<ILoginService>();
         }
 
@@ -29,10 +28,8 @@ namespace Domir.Client.Entry
         {
             try
             {
-                var result = await _myFirstService.Value.SumAsync(100, 200);
-                Debug.Log($"100 + 200 = {result}");
                 var response = await _loginService.Value.Login();
-                Debug.Log($"[response.ResponseCode]: {response.ResponseCode}");
+                if (_networkService.HandleResponse(response)) Debug.Log($"[StatusCode]: {response.StatusCode}");
             }
             catch (Exception e)
             {

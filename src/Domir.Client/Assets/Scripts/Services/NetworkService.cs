@@ -1,8 +1,9 @@
 ﻿using System;
 using Domir.Client.Network;
+using Domir.Shared.Response;
 using MagicOnion;
 
-namespace Domir.Client.Service
+namespace Domir.Client.Services
 {
     public class NetworkService
     {
@@ -21,6 +22,11 @@ namespace Domir.Client.Service
         public Lazy<T> CreateService<T>() where T : IService<T>
         {
             return _networkConnection.CreateService<T>();
+        }
+
+        public bool HandleResponse(IResponse response)
+        {
+            return _networkConnection.HandleResponse(response);
         }
     }
 }

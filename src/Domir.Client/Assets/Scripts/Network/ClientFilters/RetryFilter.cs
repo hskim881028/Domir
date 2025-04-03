@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Grpc.Core;
 using MagicOnion.Client;
 
-namespace Domir.Client.Network.ClientFilter
+namespace Domir.Client.Network.ClientFilters
 {
     public class RetryFilter : IClientFilter
     {
@@ -33,10 +33,7 @@ namespace Domir.Client.Network.ClientFilter
                 retryCount++;
             }
 
-            if (rpcException != null)
-            {
-                throw new Exception("[Retry failed] rpcException: ", rpcException);
-            }
+            if (rpcException != null) throw new Exception("[Retry failed] rpcException: ", rpcException);
 
             throw new Exception("[Retry failed] exception:", exception);
         }

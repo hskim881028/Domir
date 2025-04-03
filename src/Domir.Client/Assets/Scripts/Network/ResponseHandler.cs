@@ -1,5 +1,6 @@
-﻿using Domir.Shared.Response;
-using UnityEngine;
+﻿using Domir.Client.Infrastructure;
+using Domir.Shared.Common;
+using Domir.Shared.Response;
 
 namespace Domir.Client.Network
 {
@@ -7,7 +8,12 @@ namespace Domir.Client.Network
     {
         public bool HandleResponse(IResponse response)
         {
-            Debug.Log("");
+            if (response.StatusCode != StatusCode.Success)
+            {
+                ZLog.StatusCodeException(response.StatusCode);
+                return false;
+            }
+
             return true;
         }
     }

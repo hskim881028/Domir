@@ -1,8 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using VContainer.Unity;
 
-namespace Domir.Client.Entry
+namespace Domir.Client.Entries
 {
     public class StageEntry : IStartable
     {

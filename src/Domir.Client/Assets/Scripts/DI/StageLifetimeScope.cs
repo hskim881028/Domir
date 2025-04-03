@@ -1,4 +1,4 @@
-﻿using Domir.Client.Entry;
+﻿using Domir.Client.Entries;
 using VContainer;
 using VContainer.Unity;
 

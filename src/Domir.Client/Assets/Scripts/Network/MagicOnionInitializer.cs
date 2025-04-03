@@ -10,9 +10,9 @@ namespace Domir.Client.Network
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void OnRuntimeInitialize()
         {
-            GrpcChannelProviderHost.Initialize(new DefaultGrpcChannelProvider(() => new GrpcChannelOptions()
+            GrpcChannelProviderHost.Initialize(new DefaultGrpcChannelProvider(() => new GrpcChannelOptions
             {
-                HttpHandler = new YetAnotherHttpHandler()
+                HttpHandler = new YetAnotherHttpHandler
                 {
                     Http2Only = true,
                 },

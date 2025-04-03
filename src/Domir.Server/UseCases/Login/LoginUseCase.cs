@@ -1,4 +1,4 @@
-﻿namespace Domir.Server.UseCase.Implementation;
+﻿namespace Domir.Server.UseCases.Login;
 
 public class LoginUseCase : ILoginUseCase
 {
