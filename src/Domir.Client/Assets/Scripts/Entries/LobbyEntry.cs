@@ -1,40 +1,36 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
-using Domir.Client.Services;
-using Domir.Shared.Services;
+﻿using Cysharp.Threading.Tasks;
+using Domir.Client.Contents.Command;
+using Domir.Client.Contents.Command.Implementation;
 using UnityEngine;
 using VContainer.Unity;
 
 namespace Domir.Client.Entries
 {
-    public class LobbyEntry : IStartable
+    public class LobbyEntry : IStartable, ITickable, IPostTickable
     {
-        private readonly Lazy<ILoginService> _loginService;
-        private readonly NetworkService _networkService;
+        private readonly CommandExecutor _commandExecutor;
+        private readonly CommandHandler _commandHandler;
 
-        public LobbyEntry(NetworkService networkService)
+        public LobbyEntry(CommandExecutor commandExecutor, CommandHandler commandHandler)
         {
-            _networkService = networkService;
-            _loginService = networkService.CreateService<ILoginService>();
+            _commandExecutor = commandExecutor;
+            _commandHandler = commandHandler;
         }
 
         public void Start()
         {
             Debug.Log($"{GetType().Name} Started");
-            Test().Forget();
+            _commandHandler.Execute<Login>();
         }
 
-        private async UniTaskVoid Test()
+        public void Tick()
         {
-            try
-            {
-                var response = await _loginService.Value.Login();
-                if (_networkService.HandleResponse(response)) Debug.Log($"[StatusCode]: {response.StatusCode}");
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
+            _commandExecutor.UpdateInputAsync().Forget();
+        }
+
+        public void PostTick()
+        {
+            _commandExecutor.UpdateLogicAsync().Forget();
         }
     }
 }

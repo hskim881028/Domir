@@ -4,9 +4,8 @@
   "references": [
     "MagicOnion.Unity",
     "Cysharp.Net.Http.YetAnotherHttpHandler",
-    "Domir.Client.Core",
-    "Domir.Shared.Client",
-    "Domir.Client.Infrastructure"
+    "Domir.Client.Infrastructure",
+    "Domir.Shared.Client"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],
