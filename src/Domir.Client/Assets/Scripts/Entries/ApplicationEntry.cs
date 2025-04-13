@@ -6,12 +6,14 @@ namespace Domir.Client.Entries
 {
     public class ApplicationEntry : IStartable
     {
-        private readonly NetworkService _networkService;
         private readonly SceneLoader _sceneLoader;
+        private readonly NetworkService _networkService;
+        private readonly InputService _inputService;
 
-        public ApplicationEntry(NetworkService networkService, SceneLoader sceneLoader)
+        public ApplicationEntry(SceneLoader sceneLoader, NetworkService networkService, InputService inputService)
         {
             _networkService = networkService;
+            _inputService = inputService;
             _sceneLoader = sceneLoader;
         }
 

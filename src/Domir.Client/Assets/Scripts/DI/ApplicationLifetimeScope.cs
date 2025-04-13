@@ -20,6 +20,7 @@ namespace Domir.Client.DI
             builder.Register<IResponseHandler, ResponseHandler>(Lifetime.Singleton);
             builder.Register<INetworkConnection, NetworkConnection>(Lifetime.Singleton);
 
+            builder.Register<InputService>(Lifetime.Singleton);
             builder.Register<NetworkService>(Lifetime.Singleton);
 
             builder.Register<SceneLoader>(Lifetime.Singleton);
