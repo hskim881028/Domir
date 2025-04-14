@@ -1,7 +1,9 @@
-﻿namespace Common.UI
+﻿using Common.UI.Implementation;
+
+namespace Common.UI
 {
     public interface IUISelectable
     {
-        public IUIView Parent { get; }
+        public UIViewBase Parent { get; }
     }
 }

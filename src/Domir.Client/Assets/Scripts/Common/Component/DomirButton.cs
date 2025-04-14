@@ -1,16 +1,17 @@
 ﻿using Common.UI;
+using Common.UI.Implementation;
 using UnityEngine.UI;
 
-namespace Test
+namespace Common.Component
 {
     public class DomirButton : Button, IUISelectable
     {
-        public IUIView Parent { get; private set; }
+        public UIViewBase Parent { get; private set; }
 
         protected override void Awake()
         {
             base.Awake();
-            Parent = GetComponentInParent<IUIView>();
+            Parent = GetComponentInParent<UIViewBase>();
         }
     }
 }

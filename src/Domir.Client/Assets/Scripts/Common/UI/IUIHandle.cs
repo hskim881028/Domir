@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using Common.UI.Implementation;
+using UnityEngine;
 
 namespace Common.UI
 {
     public interface IUIHandle
     {
-        public Awaitable<IUIResult> Awaitable { get; }
-        public void Complete(IUIResult result);
+        public Awaitable<UIResult> Awaitable { get; }
+        public void Complete(UIResult result);
     }
 }

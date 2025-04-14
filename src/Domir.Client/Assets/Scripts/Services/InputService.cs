@@ -9,12 +9,11 @@ namespace Domir.Client.Services
     public sealed class InputService
     {
         private readonly InputActionAsset _inputAction;
-        private readonly UINavigation _navigation;
+        // private readonly UINavigation _navigation;
 
-        public InputService(InputActionAsset inputAction, UINavigation navigation)
+        public InputService(InputActionAsset inputAction)
         {
             _inputAction = inputAction;
-            _navigation = navigation;
             BindAction("UI/Cancel", Cancel);
         }
 
@@ -42,7 +41,6 @@ namespace Domir.Client.Services
 
             if (selectable != null)
             {
-                _navigation.Hide();
             }
         }
     }

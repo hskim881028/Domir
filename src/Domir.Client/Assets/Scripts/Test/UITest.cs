@@ -1,22 +1,18 @@
-using System.Threading.Tasks;
-using Common.UI;
+using System;
+using System.Collections.Generic;
+using Common.UI.Implementation;
 using Cysharp.Threading.Tasks;
+using Domir.Client.Contents.UI;
 using Domir.Client.Services;
-using Test;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using VContainer;
 using VContainer.Unity;
 
 public class UITest : LifetimeScope
 {
     [SerializeField] private InputActionAsset _inputAction;
-
-    [SerializeField] private Button _button;
-
-    [SerializeField] private Popup _popup;
-    [SerializeField] private Popup _nextPopup;
+    [SerializeField] private List<UIViewBase> _uiViews;
 
     private UINavigation _uiNavigation;
 
@@ -25,23 +21,49 @@ public class UITest : LifetimeScope
         base.Configure(builder);
         builder.Register<InputService>(Lifetime.Singleton).WithParameter(_inputAction);
         builder.Register<UINavigation>(Lifetime.Singleton).WithParameter(_inputAction);
+
+        builder.Register<UIPresenterFactory>(Lifetime.Singleton);
+        builder.Register<UIHandleFactory>(Lifetime.Singleton);
+
+        builder.Register<MenuPresenter>(Lifetime.Singleton);
+        builder.Register<PopupPresenter>(Lifetime.Singleton);
+
+        foreach (var view in _uiViews)
+        {
+            builder.RegisterComponentInNewPrefab(view, Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
+        }
+
+
         builder.RegisterBuildCallback(c =>
         {
             c.Resolve<InputService>();
             _uiNavigation = c.Resolve<UINavigation>();
-            _popup.Setup(_uiNavigation);
-            _nextPopup.Setup(_uiNavigation);
+            c.Resolve<UIPresenterFactory>().Initialize(new Dictionary<string, Type>
+            {
+                {
+                    nameof(MenuPresenter), typeof(MenuPresenter)
+                },
+                {
+                    nameof(PopupPresenter), typeof(PopupPresenter)
+                },
+            });
         });
-
-        _button.onClick.AddListener(() => Test().Forget());
     }
 
     private async UniTaskVoid Test()
     {
-        var result = await _uiNavigation.Show(_popup);
+        var result = await _uiNavigation.ShowAsync(nameof(PopupPresenter));
         if (result.Status == UIResultStatus.Ok)
         {
             Debug.Log("UI opened");
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Test().Forget();
         }
     }
 }

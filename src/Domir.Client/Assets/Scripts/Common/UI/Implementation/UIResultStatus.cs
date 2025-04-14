@@ -1,4 +1,4 @@
-﻿namespace Common.UI
+﻿namespace Common.UI.Implementation
 {
     public enum UIResultStatus
     {
