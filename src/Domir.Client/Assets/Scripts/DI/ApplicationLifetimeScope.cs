@@ -4,6 +4,8 @@ using Domir.Client.Network.ClientFilters;
 using Domir.Client.SceneManagement;
 using Domir.Client.Services;
 using MagicOnion.Client;
+using UnityEngine;
+using UnityEngine.InputSystem;
 using VContainer;
 using VContainer.Unity;
 
@@ -11,6 +13,8 @@ namespace Domir.Client.DI
 {
     public class ApplicationLifetimeScope : LifetimeScope
     {
+        [SerializeField] private InputActionAsset _inputAction;
+
         protected override void Configure(IContainerBuilder builder)
         {
             base.Configure(builder);
@@ -20,7 +24,7 @@ namespace Domir.Client.DI
             builder.Register<IResponseHandler, ResponseHandler>(Lifetime.Singleton);
             builder.Register<INetworkConnection, NetworkConnection>(Lifetime.Singleton);
 
-            builder.Register<InputService>(Lifetime.Singleton);
+            builder.Register<InputService>(Lifetime.Singleton).WithParameter(_inputAction);
             builder.Register<NetworkService>(Lifetime.Singleton);
 
             builder.Register<SceneLoader>(Lifetime.Singleton);
