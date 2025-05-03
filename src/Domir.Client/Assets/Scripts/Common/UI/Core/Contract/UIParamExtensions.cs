@@ -1,8 +1,6 @@
-﻿using System;
-using Domir.Client.Common.UI.Core.Contract;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Domir.Client.Common.UI.Core
+namespace Domir.Client.Common.UI.Core.Contract
 {
     public static class UIParamExtensions
     {

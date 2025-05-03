@@ -3,9 +3,7 @@
     public enum UIHandleState
     {
         Created,
-        Opening,
         Opened,
-        Closing,
         Closed,
     }
 }

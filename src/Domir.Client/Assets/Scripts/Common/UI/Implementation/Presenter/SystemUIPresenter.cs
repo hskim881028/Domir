@@ -1,4 +1,5 @@
 ﻿using Domir.Client.Common.UI.Core;
+using Domir.Client.Common.UI.Core.Navigation;
 using Domir.Client.Common.UI.Core.Presenter;
 using Domir.Client.Common.UI.Implementation.View;
 
@@ -10,7 +11,7 @@ namespace Domir.Client.Common.UI.Implementation.Presenter
     {
         public abstract int Priority { get; }
 
-        protected SystemUIPresenter(TView view) : base(view)
+        protected SystemUIPresenter(TView view, IUINavigation navigation) : base(view, navigation)
         {
         }
     }

@@ -2,7 +2,7 @@
 
 namespace Domir.Client.Common.UI.Core
 {
-    public interface IUI : IUICanvas
+    public interface IUI : IUIScope
     {
         public IUIPresenter Presenter { get; set; }
     }

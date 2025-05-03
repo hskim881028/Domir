@@ -1,6 +1,9 @@
 ﻿namespace Domir.Client.Common.UI.Core.Contract
 {
-    public record UIParam;
+    public record UIParam
+    {
+        public static UIParam Empty => new();
+    }
 
     public record PopupUIParam(
         string TitleText,

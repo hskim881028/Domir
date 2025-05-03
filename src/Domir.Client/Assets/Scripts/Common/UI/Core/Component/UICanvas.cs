@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Domir.Client.Common.UI.Core.Presenter;
+using UnityEngine;
 using UnityEngine.UI;
 using VContainer.Unity;
 
@@ -7,9 +9,22 @@ namespace Domir.Client.Common.UI.Core.Component
     [RequireComponent(typeof(Canvas))]
     [RequireComponent(typeof(CanvasScaler))]
     [RequireComponent(typeof(GraphicRaycaster))]
-    public class UICanvas : MonoBehaviour, IUICanvas
+    public sealed class UICanvas : MonoBehaviour, IUICanvas
     {
+        private Canvas _canvas;
+
         public LifetimeScope LifetimeScope { get; private set; }
+
+        public void SetSortOrder(Type uiType)
+        {
+            _canvas.sortingOrder = uiType.Name switch
+            {
+                nameof(IStaticUIPresenter) => UIOrder.StaticId,
+                nameof(IStackUIPresenter) => UIOrder.StackId,
+                nameof(ISystemUIPresenter) => UIOrder.SystemId,
+                _ => _canvas.sortingOrder
+            };
+        }
 
         private void Awake()
         {
@@ -21,9 +36,9 @@ namespace Domir.Client.Common.UI.Core.Component
             rectTransform.anchorMax = Vector2.one;
             rectTransform.pivot = Vector2.one * 0.5f;
 
-            var canvas = GetComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.vertexColorAlwaysGammaSpace = this;
+            _canvas = GetComponent<Canvas>();
+            _canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            _canvas.vertexColorAlwaysGammaSpace = this;
 
             var canvasScaler = GetComponent<CanvasScaler>();
             canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;

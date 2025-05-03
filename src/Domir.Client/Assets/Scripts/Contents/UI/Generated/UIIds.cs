@@ -3,20 +3,21 @@ using Domir.Client.Common.UI.Core;
 
 namespace Domir.Client.Contents.UI.Generated
 {
-	public static class StackUIId
-	{
-		public static UIId Inventory = 1000;
-	}
-
 	public static class StaticUIId
 	{
-		public static UIId QuickSlot = 100;
+		public static UIId Minimap = 0;
+		public static UIId QuickSlot = 1;
+	}
+
+	public static class StackUIId
+	{
+		public static UIId Inventory = 100;
 	}
 
 	public static class SystemUIId
 	{
-		public static UIId NetworkWaiting = 0;
-		public static UIId Popup = 1;
+		public static UIId NetworkWaiting = 1000;
+		public static UIId Popup = 1001;
 	}
 
 }

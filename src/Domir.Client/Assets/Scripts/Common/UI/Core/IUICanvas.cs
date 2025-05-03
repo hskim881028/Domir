@@ -1,10 +1,9 @@
-﻿using UnityEngine;
-using VContainer.Unity;
+﻿using System;
 
 namespace Domir.Client.Common.UI.Core
 {
-    public interface IUICanvas
+    public interface IUICanvas : IUIScope
     {
-        public LifetimeScope LifetimeScope { get; }
+        public void SetSortOrder(Type uiType);
     }
 }

@@ -5,7 +5,7 @@ namespace Domir.Client.Common.UI.Core
 {
     public interface IUIManager
     {
-        public IReadOnlyList<UIId> Preload();
+        public IReadOnlyList<UIId> GetStaticUI();
         public T Get<T>(UIId id) where T : IUIPresenter;
         public void Remove(UIId id);
     }

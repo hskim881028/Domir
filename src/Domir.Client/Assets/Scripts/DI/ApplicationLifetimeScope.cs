@@ -1,4 +1,5 @@
 using Domir.Client.Common.UI.Core;
+using Domir.Client.Common.UI.Core.Navigation;
 using Domir.Client.Common.UI.Implementation;
 using Domir.Client.Contents.UI;
 using Domir.Client.Contents.UI.Generated;
@@ -37,6 +38,7 @@ namespace Domir.Client.DI
 
             //ui
             builder.Register<IUIManager, UIManager>(Lifetime.Singleton).WithParameter(UIMapping.UI);
+            builder.Register<IUINavigationNodePool, UINavigationNodePool>(Lifetime.Singleton);
             builder.Register<IUINavigation, UINavigation>(Lifetime.Singleton);
 
             DontDestroyOnLoad(gameObject);

@@ -1,5 +1,6 @@
 ﻿using Domir.Client.Common.UI.Core;
 using Domir.Client.Common.UI.Core.Contract;
+using Domir.Client.Common.UI.Core.Navigation;
 using Domir.Client.Common.UI.Core.Presenter;
 using Domir.Client.Common.UI.Implementation.View;
 
@@ -10,11 +11,11 @@ namespace Domir.Client.Common.UI.Implementation.Presenter
         where TMessage : IUIMessage
     {
 
-        protected StackUIPresenter(TView view) : base(view)
+        protected StackUIPresenter(TView view, IUINavigation navigation) : base(view, navigation)
         {
         }
 
-        protected void Close(UIHideResult hideResult)
+        protected void Close(UIResult result)
         {
         }
     }

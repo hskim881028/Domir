@@ -7,7 +7,7 @@ namespace Domir.Client.Common.UI.Core.Component
 {
     [RequireComponent(typeof(Canvas))]
     [RequireComponent(typeof(GraphicRaycaster))]
-    public class UIChild : MonoBehaviour, IUI
+    public sealed class UIChild : MonoBehaviour, IUI
     {
         private RectTransform _rectTransform;
         private IUIPresenter _presenter;
@@ -21,14 +21,14 @@ namespace Domir.Client.Common.UI.Core.Component
             {
                 switch (_presenter)
                 {
-                    case ISystemUIPresenter systemPresenter:
-                        _rectTransform.SetSiblingIndex(systemPresenter.Priority);
-                        break;
                     case IStaticUIPresenter staticPresenter:
                         _rectTransform.SetSiblingIndex(staticPresenter.Priority);
                         break;
                     case IStackUIPresenter stackPresenter:
                         _rectTransform.SetAsLastSibling();
+                        break;
+                    case ISystemUIPresenter systemPresenter:
+                        _rectTransform.SetSiblingIndex(systemPresenter.Priority);
                         break;
                 }
 

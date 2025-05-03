@@ -9,4 +9,8 @@ namespace Domir.Client.Exceptions
         {
         }
     }
+
+    public class AlreadyOpenedException : Exception
+    {
+    }
 }

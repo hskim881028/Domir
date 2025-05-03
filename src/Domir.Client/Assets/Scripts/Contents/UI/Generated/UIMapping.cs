@@ -12,10 +12,11 @@ namespace Domir.Client.Contents.UI.Generated
 	{
 		public static readonly Dictionary<UIId, (Type type, string prefabPath)> UI = new()
 		{
+			// Static
+			{ StaticUIId.Minimap, (typeof(MinimapStaticUIPresenter), "UI/Static/MinimapStaticUI") },
+			{ StaticUIId.QuickSlot, (typeof(QuickSlotStaticUIPresenter), "UI/Static/QuickSlotStaticUI") },
 			// Stack
 			{ StackUIId.Inventory, (typeof(InventoryStackUIPresenter), "UI/Stack/InventoryStackUI") },
-			// Static
-			{ StaticUIId.QuickSlot, (typeof(QuickSlotStaticUIPresenter), "UI/Static/QuickSlotStaticUI") },
 			// System
 			{ SystemUIId.NetworkWaiting, (typeof(NetworkWaitingSystemUIPresenter), "UI/System/NetworkWaitingSystemUI") },
 			{ SystemUIId.Popup, (typeof(PopupSystemUIPresenter), "UI/System/PopupSystemUI") },

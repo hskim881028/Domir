@@ -16,15 +16,15 @@ namespace Domir.Client.Contents.UI.System
         [SerializeField] private DomirButton _confirmButton;
         [SerializeField] private DomirButton _cancelButton;
 
-        public override UniTask InitializeAsync(CancellationToken token)
+        public override async UniTask InitializeAsync(CancellationToken token)
         {
             _confirmButton.onClick.AddListener(() => Message.Confirm());
             _cancelButton.onClick.AddListener(() => Message.Cancel());
 
-            return base.InitializeAsync(token);
+            await base.InitializeAsync(token);
         }
 
-        public override UniTask ShowAsync(CancellationToken token, UIParam param, bool immediately = false)
+        public override async UniTask ShowAsync(CancellationToken token, UIParam param, bool immediately = false)
         {
             var popupUIParam = param.As<PopupUIParam>();
             _titleText.text = popupUIParam.TitleText;
@@ -32,7 +32,7 @@ namespace Domir.Client.Contents.UI.System
             _confirmButton.Text = popupUIParam.ConfirmButtonText;
             _cancelButton.Text = popupUIParam.CancelButtonText;
             _cancelButton.gameObject.SetActive(popupUIParam.UseTwoButton);
-            return base.ShowAsync(token, param, immediately);
+            await base.ShowAsync(token, param, immediately);
         }
     }
 }

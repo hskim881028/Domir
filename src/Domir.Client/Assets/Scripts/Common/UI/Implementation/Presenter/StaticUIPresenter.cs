@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Domir.Client.Common.UI.Core;
+using Domir.Client.Common.UI.Core.Navigation;
 using Domir.Client.Common.UI.Core.Presenter;
 using Domir.Client.Common.UI.Implementation.View;
-using log4net.Util;
 
 namespace Domir.Client.Common.UI.Implementation.Presenter
 {
@@ -14,14 +14,10 @@ namespace Domir.Client.Common.UI.Implementation.Presenter
 
         public abstract int Priority { get; }
 
-        protected StaticUIPresenter(TView view) : base(view)
+        protected StaticUIPresenter(TView view, IUINavigation navigation) : base(view, navigation)
         {
         }
 
         public bool HasLayer(UILayer layer) => Layer.Contains(layer);
-
-        public void Preload(Transform parent)
-        {
-        }
     }
 }

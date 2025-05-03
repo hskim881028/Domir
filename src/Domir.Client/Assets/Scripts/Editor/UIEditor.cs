@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using Domir.Client.Common.UI.Core;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,34 +12,21 @@ namespace Editor
     {
         private const string GeneratedPath = "Assets/Scripts/Contents/UI/Generated";
         private const string ResourcesPath = "Resources";
-        private static readonly string[] UIPaths = { $"UI/{Stack}", $"UI/{Static}", $"UI/{System}" };
-
-        private const string Stack = "Stack";
-        private const string Static = "Static";
-        private const string System = "System";
-        private const string UIMapping = "UIMapping";
-        private const string UIIds = "UIIds";
-        private static readonly string StackUI = $"{Stack}UI";
-        private static readonly string StaticUI = $"{Static}UI";
-        private static readonly string SystemUI = $"{System}UI";
-        private static readonly string StackUIId = $"{StackUI}Id";
-        private static readonly string StaticUIId = $"{StaticUI}Id";
-        private static readonly string SystemUIId = $"{SystemUI}Id";
-
+        private static readonly string[] UIPaths = { $"UI/{UIConfig.Stack}", $"UI/{UIConfig.Static}", $"UI/{UIConfig.System}" };
 
         [MenuItem("Domir/Generate UI")]
         public static void GenerateUI()
         {
-            var stackId = 1000;
-            var staticId = 100;
-            var systemId = 0;
+            var staticId = UIOrder.StaticId;
+            var stackId = UIOrder.StackId;
+            var systemId = UIOrder.SystemId;
 
-            var stackIdMap = new Dictionary<string, int>();
             var staticIdMap = new Dictionary<string, int>();
+            var stackIdMap = new Dictionary<string, int>();
             var systemIdMap = new Dictionary<string, int>();
 
-            var stackEntries = new List<string>();
             var staticEntries = new List<string>();
+            var stackEntries = new List<string>();
             var systemEntries = new List<string>();
 
             foreach (var uiPath in UIPaths)
@@ -59,25 +47,25 @@ namespace Editor
                     int id;
                     string enumName, enumField;
 
-                    if (fileName.EndsWith(StackUI))
+                    if (fileName.EndsWith(UIConfig.StaticUI))
                     {
-                        category = Stack;
-                        enumName = StackUIId;
-                        enumField = fileName.Replace(StackUI, string.Empty);
-                        id = stackId++;
-                    }
-                    else if (fileName.EndsWith(StaticUI))
-                    {
-                        category = Static;
-                        enumName = StaticUIId;
-                        enumField = fileName.Replace(StaticUI, string.Empty);
+                        category = UIConfig.Static;
+                        enumName = UIConfig.StaticUIId;
+                        enumField = fileName.Replace(UIConfig.StaticUI, string.Empty);
                         id = staticId++;
                     }
-                    else if (fileName.EndsWith(SystemUI))
+                    else if (fileName.EndsWith(UIConfig.StackUI))
                     {
-                        category = System;
-                        enumName = SystemUIId;
-                        enumField = fileName.Replace(SystemUI, string.Empty);
+                        category = UIConfig.Stack;
+                        enumName = UIConfig.StackUIId;
+                        enumField = fileName.Replace(UIConfig.StackUI, string.Empty);
+                        id = stackId++;
+                    }
+                    else if (fileName.EndsWith(UIConfig.SystemUI))
+                    {
+                        category = UIConfig.System;
+                        enumName = UIConfig.SystemUIId;
+                        enumField = fileName.Replace(UIConfig.SystemUI, string.Empty);
                         id = systemId++;
                     }
                     else continue;
@@ -89,15 +77,15 @@ namespace Editor
 
                     switch (category)
                     {
-                        case Stack:
-                            stackIdMap[enumField] = id;
-                            stackEntries.Add(entry);
-                            break;
-                        case Static:
+                        case UIConfig.Static:
                             staticIdMap[enumField] = id;
                             staticEntries.Add(entry);
                             break;
-                        case System:
+                        case UIConfig.Stack:
+                            stackIdMap[enumField] = id;
+                            stackEntries.Add(entry);
+                            break;
+                        case UIConfig.System:
                             systemIdMap[enumField] = id;
                             systemEntries.Add(entry);
                             break;
@@ -110,15 +98,15 @@ namespace Editor
                 Directory.CreateDirectory(GeneratedPath);
             }
 
-            File.WriteAllText($"{GeneratedPath}/{UIIds}.cs", GenerateUIIds(stackIdMap, staticIdMap, systemIdMap));
-            File.WriteAllText($"{GeneratedPath}/{UIMapping}.cs", GenerateUIMapping(stackEntries, staticEntries, systemEntries));
+            File.WriteAllText($"{GeneratedPath}/{UIConfig.UIIds}.cs", GenerateUIIds(staticIdMap, stackIdMap, systemIdMap));
+            File.WriteAllText($"{GeneratedPath}/{UIConfig.UIMapping}.cs", GenerateUIMapping(staticEntries, stackEntries, systemEntries));
             AssetDatabase.Refresh();
-            Debug.Log($"✅ Generated <color=#81C784>{UIIds}.cs</color> and <color=#81C784>{UIMapping}.cs</color> successfully.");
+            Debug.Log($"✅ Generated <color=#81C784>{UIConfig.UIIds}.cs</color> and <color=#81C784>{UIConfig.UIMapping}.cs</color> successfully.");
         }
 
         private static string GenerateUIIds(
-            Dictionary<string, int> stackUI,
             Dictionary<string, int> staticUI,
+            Dictionary<string, int> stackUI,
             Dictionary<string, int> systemUI)
         {
             var sb = new StringBuilder();
@@ -127,9 +115,9 @@ namespace Editor
             sb.AppendLine();
             sb.AppendLine("namespace Domir.Client.Contents.UI.Generated");
             sb.AppendLine("{");
-            sb.AppendLine(GenerateBlock(StackUIId, stackUI));
-            sb.AppendLine(GenerateBlock(StaticUIId, staticUI));
-            sb.AppendLine(GenerateBlock(SystemUIId, systemUI));
+            sb.AppendLine(GenerateBlock(UIConfig.StaticUIId, staticUI));
+            sb.AppendLine(GenerateBlock(UIConfig.StackUIId, stackUI));
+            sb.AppendLine(GenerateBlock(UIConfig.SystemUIId, systemUI));
             sb.AppendLine("}");
             sb.Append("// </auto-generated>");
             return sb.ToString();
@@ -149,8 +137,8 @@ namespace Editor
         }
 
         private static string GenerateUIMapping(
-            List<string> stackEntries,
             List<string> staticEntries,
+            List<string> stackEntries,
             List<string> systemEntries)
         {
             var sb = new StringBuilder();
@@ -164,28 +152,28 @@ namespace Editor
             sb.AppendLine();
             sb.AppendLine("namespace Domir.Client.Contents.UI.Generated");
             sb.AppendLine("{");
-            sb.AppendLine($"\tpublic static class {UIMapping}");
+            sb.AppendLine($"\tpublic static class {UIConfig.UIMapping}");
             sb.AppendLine("\t{");
             sb.AppendLine("\t\tpublic static readonly Dictionary<UIId, (Type type, string prefabPath)> UI = new()");
             sb.AppendLine("\t\t{");
 
-            if (stackEntries.Count > 0)
+            if (staticEntries.Count > 0)
             {
-                sb.AppendLine($"\t\t\t// {Stack}");
-                foreach (var entry in stackEntries.OrderBy(x => x))
+                sb.AppendLine($"\t\t\t// {UIConfig.Static}");
+                foreach (var entry in staticEntries.OrderBy(x => x))
                     sb.AppendLine($"\t\t\t{entry},");
             }
 
-            if (staticEntries.Count > 0)
+            if (stackEntries.Count > 0)
             {
-                sb.AppendLine($"\t\t\t// {Static}");
-                foreach (var entry in staticEntries.OrderBy(x => x))
+                sb.AppendLine($"\t\t\t// {UIConfig.Stack}");
+                foreach (var entry in stackEntries.OrderBy(x => x))
                     sb.AppendLine($"\t\t\t{entry},");
             }
 
             if (systemEntries.Count > 0)
             {
-                sb.AppendLine($"\t\t\t// {System}");
+                sb.AppendLine($"\t\t\t// {UIConfig.System}");
                 foreach (var entry in systemEntries.OrderBy(x => x))
                     sb.AppendLine($"\t\t\t{entry},");
             }

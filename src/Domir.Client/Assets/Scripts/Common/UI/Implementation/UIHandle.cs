@@ -2,20 +2,50 @@
 using Cysharp.Threading.Tasks;
 using Domir.Client.Common.UI.Core;
 using Domir.Client.Common.UI.Core.Contract;
+using Domir.Client.Common.UI.Core.Navigation;
 using Domir.Client.Common.UI.Core.State;
 
 namespace Domir.Client.Common.UI.Implementation
 {
-    public class UIHandle : IUIHandle
-
+    public sealed class UIHandle : IUIHandle
     {
-        private UniTaskCompletionSource<UIHideResult> _closeSource = new();
+        private UniTaskCompletionSource<UIResult> _closeSource = new();
         private CancellationToken _cancellationToken;
         private UIHandleState _state = UIHandleState.Created;
         private bool _isDisposed;
 
-        public bool IsOpened => _state >= UIHandleState.Opened;
-        public bool IsClosed => _state >= UIHandleState.Closed;
+        private UIHandle() { }
+
+        public static IUIHandle Create => new UIHandle();
+        public static IUIHandle Error => Create.Closed(UIResult.Failure);
+
+        public bool IsOpened => _state == UIHandleState.Opened;
+        public bool IsClosed => _state == UIHandleState.Closed;
+
+        public void Reset(CancellationToken cancellationToken)
+        {
+            _cancellationToken = cancellationToken;
+            _closeSource = new UniTaskCompletionSource<UIResult>();
+            _state = UIHandleState.Created;
+        }
+
+        public IUIHandle Opened()
+        {
+            _state = UIHandleState.Opened;
+            return this;
+        }
+
+        public IUIHandle Closed(UIResult result)
+        {
+            _state = UIHandleState.Closed;
+            _closeSource.TrySetResult(result);
+            return this;
+        }
+
+        public async UniTask<UIResult> WaitUntilClosedAsync()
+        {
+            return await _closeSource.Task.AttachExternalCancellation(_cancellationToken);
+        }
 
         public void Dispose()
         {
@@ -26,39 +56,6 @@ namespace Domir.Client.Common.UI.Implementation
 
             _isDisposed = true;
             _closeSource.TrySetCanceled();
-        }
-
-        public void Reset(CancellationToken cancellationToken)
-        {
-            _cancellationToken = cancellationToken;
-            _closeSource = new UniTaskCompletionSource<UIHideResult>();
-            _state = UIHandleState.Created;
-        }
-
-        public void Open()
-        {
-            _state = UIHandleState.Opening;
-        }
-
-        public void Opened()
-        {
-            _state = UIHandleState.Opened;
-        }
-
-        public void Close()
-        {
-            _state = UIHandleState.Closing;
-        }
-
-        public void Closed(UIHideResult hideResult)
-        {
-            _state = UIHandleState.Closed;
-            _closeSource.TrySetResult(hideResult);
-        }
-
-        public async UniTask<UIHideResult> WaitUntilClosedAsync()
-        {
-            return await _closeSource.Task.AttachExternalCancellation(_cancellationToken);
         }
     }
 }

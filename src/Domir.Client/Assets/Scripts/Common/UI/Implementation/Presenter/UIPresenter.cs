@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Domir.Client.Common.UI.Core;
 using Domir.Client.Common.UI.Core.Contract;
+using Domir.Client.Common.UI.Core.Navigation;
 using Domir.Client.Common.UI.Core.Presenter;
 using Domir.Client.Common.UI.Core.View;
 using Domir.Client.Exceptions;
@@ -15,6 +16,7 @@ namespace Domir.Client.Common.UI.Implementation.Presenter
         where TView : IUIView<TMessage>
         where TMessage : IUIMessage
     {
+        private IUINavigation _navigation;
         private bool _initialized;
         private bool _isDisposed;
 
@@ -25,7 +27,7 @@ namespace Domir.Client.Common.UI.Implementation.Presenter
         public GameObject LastSelector { get; set; }
         public virtual bool DeactivateBehindView { get; }
 
-        protected UIPresenter(TView view)
+        protected UIPresenter(TView view, IUINavigation navigation)
         {
             if (this is not TMessage message)
             {
@@ -34,6 +36,7 @@ namespace Domir.Client.Common.UI.Implementation.Presenter
 
             View = view;
             View.AttachMessage(message);
+            _navigation = navigation;
         }
 
         public void Dispose()
@@ -99,6 +102,11 @@ namespace Domir.Client.Common.UI.Implementation.Presenter
 
         public virtual void OnHideExit()
         {
+        }
+        
+        protected void Close(UIId id, UIResult result, bool immediately = false)
+        {
+            _navigation.HideSystemUIAsync(id, result, immediately).Forget();
         }
     }
 }

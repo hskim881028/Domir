@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Domir.Client.Common.UI.Core;
 using Domir.Client.Common.UI.Core.Component;
 using Domir.Client.Common.UI.Core.Presenter;
 using Domir.Client.Common.UI.Implementation.View;
+using Domir.Client.Contents.UI.Generated;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -24,9 +26,20 @@ namespace Domir.Client.Contents.UI
             _presenters = presenters;
         }
 
-        public IReadOnlyList<UIId> Preload()
+        public IReadOnlyList<UIId> GetStaticUI()
         {
-            throw new NotImplementedException();
+            var staticUIIds = typeof(StaticUIId)
+                .GetFields()
+                .Where(f => f.IsStatic && f.FieldType == typeof(UIId))
+                .Select(f => (UIId)f.GetValue(null))
+                .ToHashSet();
+
+            var ids = _presenters
+                .Where(kv => staticUIIds.Contains(kv.Key))
+                .Select(kv => kv.Key)
+                .ToList();
+
+            return ids;
         }
 
         public T Get<T>(UIId id) where T : IUIPresenter
@@ -44,7 +57,7 @@ namespace Domir.Client.Contents.UI
                     builder.RegisterComponentInNewPrefab(prefab, Lifetime.Scoped).AsSelf();
                     builder.Register(type, Lifetime.Scoped);
                 },
-                $"{type.Name.Replace("Presenter", string.Empty)}");
+                $"{type.Name.AsUI()}");
             var component = child.gameObject.AddComponent<UIChild>();
             component.Presenter = (T)child.Container.Resolve(type);
             _ui.Add(id, component);
@@ -56,13 +69,14 @@ namespace Domir.Client.Contents.UI
             _ui.Remove(id);
         }
 
-        private IUICanvas GetCanvas<T>() where T : IUIPresenter
+        private IUIScope GetCanvas<T>() where T : IUIPresenter
         {
             var uiType = typeof(T);
             if (_canvas.TryGetValue(uiType, out var canvas)) return canvas;
-            
-            var child = _rooLifetimeScope.CreateChild(_ => { }, $"Canvas({uiType.Name})");
+
+            var child = _rooLifetimeScope.CreateChild(_ => { }, uiType.Name.AsCanvas());
             var component = child.gameObject.AddComponent<UICanvas>();
+            component.SetSortOrder(uiType);
             _canvas.Add(uiType, component);
             return _canvas[uiType];
         }

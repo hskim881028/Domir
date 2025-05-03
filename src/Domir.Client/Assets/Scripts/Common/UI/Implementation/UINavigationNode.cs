@@ -1,14 +1,12 @@
 ﻿using System.Threading;
 using Domir.Client.Common.UI.Core;
 using Domir.Client.Common.UI.Core.Contract;
+using Domir.Client.Common.UI.Core.Navigation;
 
 namespace Domir.Client.Common.UI.Implementation
 {
-    public class UINavigationNode : IUINavigationNode
+    public sealed class UINavigationNode : IUINavigationNode
     {
-        public UIId Id { get; private set; }
-        public CancellationToken Token => _cts.Token;
-
         private readonly IUIHandle _handle;
         private CancellationTokenSource _cts = new();
         private bool _isDisposed;
@@ -17,6 +15,27 @@ namespace Domir.Client.Common.UI.Implementation
         {
             _handle = handle;
             Reset(id);
+        }
+
+        public UIId Id { get; private set; }
+        public CancellationToken Token => _cts.Token;
+
+        public void Reset(UIId id)
+        {
+            ResetCancellationTokenSource();
+            Id = id;
+            _handle.Reset(Token);
+        }
+
+        public IUIHandle Opened()
+        {
+            return _handle.Opened();
+        }
+
+        public void Closed(UIResult result)
+        {
+            _handle.Closed(result);
+            Reset(Id);
         }
 
         public void Dispose()
@@ -30,34 +49,6 @@ namespace Domir.Client.Common.UI.Implementation
             _cts.Cancel();
             _cts.Dispose();
             _handle.Dispose();
-        }
-
-        public void Reset(UIId id)
-        {
-            ResetCancellationTokenSource();
-            Id = id;
-            _handle.Reset(Token);
-        }
-
-        public void Open()
-        {
-            _handle.Open();
-        }
-
-        public IUIHandle Opened()
-        {
-            _handle.Opened();
-            return _handle;
-        }
-
-        public void Close()
-        {
-            _handle.Close();
-        }
-
-        public void Closed(UIHideResult hideResult)
-        {
-            _handle.Closed(hideResult);
         }
 
         private void ResetCancellationTokenSource()
