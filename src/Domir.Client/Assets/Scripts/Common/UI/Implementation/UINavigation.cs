@@ -1,60 +1,106 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
+using System.Linq;
+using Cysharp.Threading.Tasks;
+using Domir.Client.Common.UI.Core;
+using Domir.Client.Common.UI.Core.Contract;
+using Domir.Client.Common.UI.Core.Presenter;
+using Domir.Client.Exceptions;
 
-namespace Common.UI.Implementation
+namespace Domir.Client.Common.UI.Implementation
 {
-    public sealed class UINavigation
+    public class UINavigation : IUINavigation
     {
-        private readonly LinkedList<string> _stack = new();
-        private readonly IUIPresenterFactory _factory;
-
-        public UINavigation(UIPresenterFactory factory)
+        private readonly IUINavigationNodePool _navigationNodePool = new UINavigationNodePool();
+        private readonly IUIManager _iuiManager;
+        private readonly HashSet<IUINavigationNode> _nodes = new();
+        private bool _isDisposed;
+        
+        public bool IsOpened { get; }
+        
+        public UINavigation(IUIManager iuiManager)
         {
-            _factory = factory;
+            _iuiManager = iuiManager;
+        }
+        
+        public async UniTask<UIShowResult> ShowAsync(UIId id, UIParam payload = null, bool immediately = false)
+        {
+            var node = Open(id);
+            var presenter = _iuiManager.Get<ISystemUIPresenter>(id);
+            try
+            {
+                presenter.Activate(0);
+                await presenter.InitializeAsync(node.Token);
+                // Sort();
+                presenter.OnShowEnter();
+                await presenter.ShowAsync(node.Token, payload ?? new UIParam(), immediately);
+                presenter.OnShowExit();
+            }
+            catch (InitializationFailedException)
+            {
+                Remove(id);
+            }
+
+            return UIShowResult.Success(node.Opened());
         }
 
-        public Awaitable<UIResult> ShowAsync(string id)
+        public async UniTask<bool> HideAsync(UIId id, UIHideResult hideResult, bool immediately = false)
         {
-            if (_stack.Count > 0)
+            throw new System.NotImplementedException();
+        }
+        
+        public void Remove(UIId id)
+        {
+            var node = _nodes.FirstOrDefault(x => x.Id == id);
+            if (node != null)
             {
-                var preId = _stack.Last.Value;
-                _factory.Get(preId).LastSelector = EventSystem.current.currentSelectedGameObject;
+                _nodes.Remove(node);
             }
 
-            if (!_stack.Contains(id))
-            {
-                _stack.AddLast(id);
-            }
-
-            var presenter = _factory.Get(id);
-            presenter.ShowAsync();
-            var handle = presenter.GenerateHandle();
-
-            EventSystem.current.SetSelectedGameObject(presenter.FirstSelector);
-            return handle.Awaitable;
+            _iuiManager.Remove(id);
         }
 
-        public Awaitable<UIResult> HideAsync(string id)
+
+        private IUINavigationNode Open(UIId id)
         {
-            if (_stack.Count == 0) return null;
-
-            var presenter = _factory.Get(id);
-            var handle = presenter.GenerateHandle();
-            presenter.HideAsync();
-
-            _stack.Remove(id);
-            if (_stack.Count > 0)
+            var node = _nodes.FirstOrDefault(x => x.Id == id);
+            if (node == null)
             {
-                var peek = _factory.Get(_stack.Last.Value);
-                EventSystem.current.SetSelectedGameObject(peek.LastSelector);
-            }
-            else
-            {
-                EventSystem.current.SetSelectedGameObject(EventSystem.current.firstSelectedGameObject);
+                node = _navigationNodePool.Get(id);
+                _nodes.Add(node);
             }
 
-            return handle.Awaitable;
+            node.Reset(id);
+            node.Open();
+            return node;
         }
+
+        private bool Close(UIId id, out IUINavigationNode node)
+        {
+            node = _nodes.FirstOrDefault(x => x.Id == id);
+            node?.Close();
+            return node != null;
+        }
+
+        private void Closed(IUINavigationNode node, UIHideResult hideResult)
+        {
+            node.Closed(hideResult);
+            node.Reset(node.Id);
+            _nodes.Remove(node);
+            _navigationNodePool.Return(node);
+        }
+
+        // private void Sort()
+        // {
+        //     var presenters = new List<ISystemUIPresenter>();
+        //     foreach (var presenter in _nodes.Select(node => _uiInstaller.Get<ISystemUIPresenter>(node.Id));
+        //     {
+        //         presenters.Add(presenter);
+        //     }
+        //
+        //     foreach (var presenter in presenters.OrderBy(x => x.Priority))
+        //     {
+        //         presenter.SetAsLastSibling();
+        //     }
+        // }
     }
 }

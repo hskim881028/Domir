@@ -1,3 +1,7 @@
+using Domir.Client.Common.UI.Core;
+using Domir.Client.Common.UI.Implementation;
+using Domir.Client.Contents.UI;
+using Domir.Client.Contents.UI.Generated;
 using Domir.Client.Entries;
 using Domir.Client.Network;
 using Domir.Client.Network.ClientFilters;
@@ -30,6 +34,11 @@ namespace Domir.Client.DI
             builder.Register<SceneLoader>(Lifetime.Singleton);
 
             builder.Register<ApplicationEntry>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
+
+            //ui
+            builder.Register<IUIManager, UIManager>(Lifetime.Singleton).WithParameter(UIMapping.UI);
+            builder.Register<IUINavigation, UINavigation>(Lifetime.Singleton);
+
             DontDestroyOnLoad(gameObject);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
-using Common.UI;
+using Domir.Client.Common.UI;
+using Domir.Client.Common.UI.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;

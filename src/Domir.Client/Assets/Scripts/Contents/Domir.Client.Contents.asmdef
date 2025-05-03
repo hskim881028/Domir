@@ -1,19 +1,21 @@
 {
-  "name": "Domir.Client.Contents",
-  "rootNamespace": "Domir.Client",
-  "references": [
-    "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
-    "GUID:7b4f2210bab488f4088b1d44d3caeed6",
-    "GUID:a51a9bc71a0eb32438fecaf03e24a83d",
-    "GUID:936538edb50275a4dac3b48be34f0a70"
-  ],
-  "includePlatforms": [],
-  "excludePlatforms": [],
-  "allowUnsafeCode": false,
-  "overrideReferences": false,
-  "precompiledReferences": [],
-  "autoReferenced": true,
-  "defineConstraints": [],
-  "versionDefines": [],
-  "noEngineReferences": false
+    "name": "Domir.Client.Contents",
+    "rootNamespace": "Domir.Client",
+    "references": [
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:7b4f2210bab488f4088b1d44d3caeed6",
+        "GUID:936538edb50275a4dac3b48be34f0a70",
+        "GUID:a51a9bc71a0eb32438fecaf03e24a83d",
+        "GUID:9f4147597d0609d4da03e5a3a0f84245"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

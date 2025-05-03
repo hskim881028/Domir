@@ -1,16 +1,64 @@
-﻿using UnityEngine;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
+using Domir.Client.Common.UI.Core;
+using Domir.Client.Common.UI.Core.Contract;
+using Domir.Client.Common.UI.Core.State;
 
-namespace Common.UI.Implementation
+namespace Domir.Client.Common.UI.Implementation
 {
     public class UIHandle : IUIHandle
+
     {
-        private readonly AwaitableCompletionSource<UIResult> _acs = new();
+        private UniTaskCompletionSource<UIHideResult> _closeSource = new();
+        private CancellationToken _cancellationToken;
+        private UIHandleState _state = UIHandleState.Created;
+        private bool _isDisposed;
 
-        public Awaitable<UIResult> Awaitable => _acs.Awaitable;
+        public bool IsOpened => _state >= UIHandleState.Opened;
+        public bool IsClosed => _state >= UIHandleState.Closed;
 
-        public void Complete(UIResult result)
+        public void Dispose()
         {
-            _acs.TrySetResult(result);
+            if (_isDisposed)
+            {
+                return;
+            }
+
+            _isDisposed = true;
+            _closeSource.TrySetCanceled();
+        }
+
+        public void Reset(CancellationToken cancellationToken)
+        {
+            _cancellationToken = cancellationToken;
+            _closeSource = new UniTaskCompletionSource<UIHideResult>();
+            _state = UIHandleState.Created;
+        }
+
+        public void Open()
+        {
+            _state = UIHandleState.Opening;
+        }
+
+        public void Opened()
+        {
+            _state = UIHandleState.Opened;
+        }
+
+        public void Close()
+        {
+            _state = UIHandleState.Closing;
+        }
+
+        public void Closed(UIHideResult hideResult)
+        {
+            _state = UIHandleState.Closed;
+            _closeSource.TrySetResult(hideResult);
+        }
+
+        public async UniTask<UIHideResult> WaitUntilClosedAsync()
+        {
+            return await _closeSource.Task.AttachExternalCancellation(_cancellationToken);
         }
     }
 }
