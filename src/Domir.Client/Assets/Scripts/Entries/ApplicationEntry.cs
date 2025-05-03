@@ -1,10 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
+using Domir.Client.Common.UI.Contract;
 using Domir.Client.Common.UI.Core;
-using Domir.Client.Common.UI.Core.Contract;
-using Domir.Client.Common.UI.Core.Navigation;
-using Domir.Client.Common.UI.Core.Presenter;
-using Domir.Client.Common.UI.Core.State;
-using Domir.Client.Common.UI.Implementation.Presenter;
+using Domir.Client.Common.UI.Navigation;
 using Domir.Client.Contents.UI;
 using Domir.Client.Contents.UI.Generated;
 using Domir.Client.SceneManagement;

@@ -1,6 +1,5 @@
 using Domir.Client.Common.UI.Core;
-using Domir.Client.Common.UI.Core.Navigation;
-using Domir.Client.Common.UI.Implementation;
+using Domir.Client.Common.UI.Navigation;
 using Domir.Client.Contents.UI;
 using Domir.Client.Contents.UI.Generated;
 using Domir.Client.Entries;

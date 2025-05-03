@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using Domir.Client.Common.UI.Core.Contract;
+using Domir.Client.Common.UI.Contract;
 
 namespace Domir.Client.Common.UI.Core
 {

@@ -2,8 +2,5 @@
 
 namespace Domir.Client.Contents.UI.Static
 {
-    public interface IMinimapStaticUIMessage : IUIMessage
-    {
-        
-    }
+    public interface IMinimapStaticUIMessage : IUIMessage { }
 }

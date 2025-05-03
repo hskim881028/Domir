@@ -1,6 +1,4 @@
 ﻿namespace Domir.Client.Common.UI.Core
 {
-    public interface IUIMessage
-    {
-    }
+    public interface IUIMessage { }
 }

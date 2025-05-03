@@ -1,7 +1,6 @@
-﻿using Domir.Client.Common.UI.Core;
-using Domir.Client.Common.UI.Core.Contract;
-using Domir.Client.Common.UI.Core.Navigation;
-using Domir.Client.Common.UI.Implementation.Presenter;
+﻿using Domir.Client.Common.UI.Contract;
+using Domir.Client.Common.UI.Navigation;
+using Domir.Client.Common.UI.Presenter;
 using Domir.Client.Contents.UI.Generated;
 
 namespace Domir.Client.Contents.UI.System
@@ -10,9 +9,7 @@ namespace Domir.Client.Contents.UI.System
     {
         public override int Priority => 0;
 
-        public PopupSystemUIPresenter(PopupSystemUIView view, IUINavigation navigation) : base(view, navigation)
-        {
-        }
+        public PopupSystemUIPresenter(PopupSystemUIView view, IUINavigation navigation) : base(view, navigation) { }
 
         public void Confirm()
         {

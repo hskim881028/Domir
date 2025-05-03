@@ -1,4 +1,4 @@
-﻿using Domir.Client.Common.UI.Implementation.View;
+﻿using Domir.Client.Common.UI.View;
 
 namespace Domir.Client.Common.UI.Core
 {

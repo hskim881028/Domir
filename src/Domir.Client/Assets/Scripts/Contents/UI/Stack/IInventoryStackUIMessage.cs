@@ -2,8 +2,5 @@
 
 namespace Domir.Client.Contents.UI.Stack
 {
-    public interface IInventoryStackUIMessage : IUIMessage
-    {
-        
-    }
+    public interface IInventoryStackUIMessage : IUIMessage { }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Domir.Client.Common.UI.Core;
-using Domir.Client.Common.UI.Core.Navigation;
-using Domir.Client.Common.UI.Implementation.Presenter;
+using Domir.Client.Common.UI.Navigation;
+using Domir.Client.Common.UI.Presenter;
 
 namespace Domir.Client.Contents.UI.Static
 {
@@ -9,9 +9,7 @@ namespace Domir.Client.Contents.UI.Static
     {
         protected override HashSet<UILayer> Layer => UILayer.Set(UILayers.Test);
         public override int Priority => 1;
-        
-        public MinimapStaticUIPresenter(MinimapStaticUIView view, IUINavigation navigation) : base(view, navigation)
-        {
-        }
+
+        public MinimapStaticUIPresenter(MinimapStaticUIView view, IUINavigation navigation) : base(view, navigation) { }
     }
 }

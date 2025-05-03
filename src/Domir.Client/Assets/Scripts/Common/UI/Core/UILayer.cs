@@ -13,10 +13,7 @@ namespace Domir.Client.Common.UI.Core
 
         public static HashSet<UILayer> SetWithDefault(params UILayer[] values)
         {
-            var result = new HashSet<UILayer>
-            {
-                Default
-            };
+            var result = new HashSet<UILayer> { Default };
             foreach (var value in values)
             {
                 result.Add(value);
@@ -25,9 +22,6 @@ namespace Domir.Client.Common.UI.Core
             return result;
         }
 
-        public static HashSet<UILayer> SetDefault => new()
-        {
-            Default
-        };
+        public static HashSet<UILayer> SetDefault => new() { Default };
     }
 }

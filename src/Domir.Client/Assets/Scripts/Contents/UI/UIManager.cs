@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Domir.Client.Common.UI.Core;
-using Domir.Client.Common.UI.Core.Component;
-using Domir.Client.Common.UI.Core.Presenter;
-using Domir.Client.Common.UI.Implementation.View;
+using Domir.Client.Common.UI.Presenter;
+using Domir.Client.Common.UI.Scope;
+using Domir.Client.Common.UI.View;
 using Domir.Client.Contents.UI.Generated;
 using UnityEngine;
 using VContainer;
