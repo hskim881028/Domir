@@ -38,10 +38,7 @@ namespace Domir.Client.Common.UI.Implementation.Presenter
 
         public void Dispose()
         {
-            if (_isDisposed)
-            {
-                return;
-            }
+            if (_isDisposed) return;
 
             _isDisposed = true;
             Disposable.Dispose();
@@ -54,10 +51,7 @@ namespace Domir.Client.Common.UI.Implementation.Presenter
 
         public virtual async UniTask InitializeAsync(CancellationToken token)
         {
-            if (_initialized)
-            {
-                return;
-            }
+            if (_initialized) return;
 
             try
             {

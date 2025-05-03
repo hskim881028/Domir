@@ -13,10 +13,5 @@ namespace Domir.Client.Common.UI.Implementation.Presenter
         protected SystemUIPresenter(TView view) : base(view)
         {
         }
-
-        public void SetSiblingIndex()
-        {
-            View.SetSiblingIndex(Priority);
-        }
     }
 }

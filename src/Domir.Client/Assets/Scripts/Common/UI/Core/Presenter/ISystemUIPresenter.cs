@@ -3,7 +3,5 @@
     public interface ISystemUIPresenter : IUIPresenter
     {
         public int Priority { get; }
-        
-        public void SetSiblingIndex();
     }
 }

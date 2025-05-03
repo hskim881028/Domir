@@ -37,7 +37,6 @@ namespace Domir.Client.Contents.UI
             }
 
             var canvas = GetCanvas<T>();
-
             var (type, prefabPath) = _presenters[id];
             var child = canvas.LifetimeScope.CreateChild(builder =>
                 {
@@ -45,7 +44,7 @@ namespace Domir.Client.Contents.UI
                     builder.RegisterComponentInNewPrefab(prefab, Lifetime.Scoped).AsSelf();
                     builder.Register(type, Lifetime.Scoped);
                 },
-                $"{type.Name}");
+                $"{type.Name.Replace("Presenter", string.Empty)}");
             var component = child.gameObject.AddComponent<UIChild>();
             component.Presenter = (T)child.Container.Resolve(type);
             _ui.Add(id, component);
@@ -54,15 +53,15 @@ namespace Domir.Client.Contents.UI
 
         public void Remove(UIId id)
         {
-            throw new NotImplementedException();
+            _ui.Remove(id);
         }
 
         private IUICanvas GetCanvas<T>() where T : IUIPresenter
         {
             var uiType = typeof(T);
             if (_canvas.TryGetValue(uiType, out var canvas)) return canvas;
-
-            var child = _rooLifetimeScope.CreateChild(_ => { }, $"Canvas({uiType})");
+            
+            var child = _rooLifetimeScope.CreateChild(_ => { }, $"Canvas({uiType.Name})");
             var component = child.gameObject.AddComponent<UICanvas>();
             _canvas.Add(uiType, component);
             return _canvas[uiType];

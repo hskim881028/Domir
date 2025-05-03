@@ -3,11 +3,11 @@ using Domir.Client.Common.UI.Implementation.Presenter;
 
 namespace Domir.Client.Contents.UI.System
 {
-    public class NetworkWaitingUIPresenter : SystemUIPresenter<NetworkWaitingUIView, IUIMessage>, IUIMessage
+    public class NetworkWaitingSystemUIPresenter : SystemUIPresenter<NetworkWaitingSystemUIView, IUIMessage>, IUIMessage
     {
         public override int Priority => 99;
         
-        public NetworkWaitingUIPresenter(NetworkWaitingUIView view) : base(view)
+        public NetworkWaitingSystemUIPresenter(NetworkWaitingSystemUIView view) : base(view)
         {
         }
     }
