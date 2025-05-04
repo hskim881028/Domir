@@ -19,6 +19,5 @@ namespace Domir.Client.Contents.UI.Generated
 		public static UIId NetworkWaiting = 1000;
 		public static UIId Popup = 1001;
 	}
-
 }
 // </auto-generated>

@@ -6,6 +6,7 @@ using Domir.Client.Contents.Command;
 using Domir.Client.Contents.Command.Implementation;
 using Domir.Client.Contents.UI;
 using Domir.Client.Contents.UI.Generated;
+using Domir.Client.Services;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -16,20 +17,24 @@ namespace Domir.Client.Entries
         private readonly CommandExecutor _commandExecutor;
         private readonly CommandHandler _commandHandler;
         private readonly IUINavigation _navigation;
+        private readonly CameraService _cameraService;
 
         public LobbyEntry(
             CommandExecutor commandExecutor,
             CommandHandler commandHandler,
-            IUINavigation navigation)
+            IUINavigation navigation,
+            CameraService cameraService)
         {
             _commandExecutor = commandExecutor;
             _commandHandler = commandHandler;
             _navigation = navigation;
+            _cameraService = cameraService;
         }
 
         public void Start()
         {
             Debug.Log($"{GetType().Name} Started");
+            _cameraService.SetColor(Color.antiqueWhite);
             _commandHandler.Execute<Login>();
         }
 

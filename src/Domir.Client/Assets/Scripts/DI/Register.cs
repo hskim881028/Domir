@@ -8,6 +8,10 @@ using Domir.Client.Network;
 using Domir.Client.Network.ClientFilters;
 using Domir.Client.Services;
 using MagicOnion.Client;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.U2D;
 using VContainer;
 
 namespace Domir.Client.DI
@@ -21,6 +25,19 @@ namespace Domir.Client.DI
             builder.Register<IResponseHandler, ResponseHandler>(lifetime);
             builder.Register<INetworkConnection, NetworkConnection>(lifetime);
             builder.Register<NetworkService>(lifetime);
+        }
+
+        public static void Services(
+            IContainerBuilder builder,
+            Lifetime lifetime,
+            InputActionAsset inputAction,
+            EventSystem eventSystem,
+            Camera mainCamera,
+            Light2DBase globalLight)
+        {
+            builder.Register<InputService>(lifetime).WithParameter(inputAction).WithParameter(eventSystem);
+            builder.Register<CameraService>(lifetime).WithParameter(mainCamera);
+            builder.Register<EnvironmentService>(lifetime).WithParameter(globalLight);
         }
 
         public static void Command(IContainerBuilder builder, Lifetime lifetime)
