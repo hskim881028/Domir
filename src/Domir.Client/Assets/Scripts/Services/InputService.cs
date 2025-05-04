@@ -1,5 +1,4 @@
 ﻿using System;
-using Domir.Client.Common.UI;
 using Domir.Client.Common.UI.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,11 +9,14 @@ namespace Domir.Client.Services
     public sealed class InputService
     {
         private readonly InputActionAsset _inputAction;
-        // private readonly UINavigation _navigation;
+        private readonly EventSystem _eventSystem;
 
-        public InputService(InputActionAsset inputAction)
+        public InputService(
+            InputActionAsset inputAction,
+            EventSystem eventSystem)
         {
             _inputAction = inputAction;
+            _eventSystem = eventSystem;
             BindAction("UI/Cancel", Cancel);
         }
 
@@ -34,15 +36,13 @@ namespace Domir.Client.Services
         private void Cancel(InputAction.CallbackContext context)
         {
             Debug.Log("Cancel");
-            var currentSelected = EventSystem.current.currentSelectedGameObject;
+            var currentSelected = _eventSystem.currentSelectedGameObject;
             if (currentSelected == null) return;
 
             Debug.Log($"[currentSelected] : {currentSelected.name} / {currentSelected.tag} / {currentSelected.layer}");
             var selectable = currentSelected.GetComponent<IUISelectable>();
 
-            if (selectable != null)
-            {
-            }
+            if (selectable != null) { }
         }
     }
 }

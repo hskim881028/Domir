@@ -1,6 +1,4 @@
-﻿using Domir.Client.Contents.Command;
-using Domir.Client.Contents.Command.Implementation;
-using Domir.Client.Entries;
+﻿using Domir.Client.Entries;
 using VContainer;
 using VContainer.Unity;
 
@@ -11,10 +9,10 @@ namespace Domir.Client.DI
         protected override void Configure(IContainerBuilder builder)
         {
             base.Configure(builder);
-            builder.Register<Login>(Lifetime.Singleton);
-            builder.Register<CommandExecutor>(Lifetime.Singleton);
-            builder.Register<CommandHandler>(Lifetime.Singleton);
 
+            Register.Command(builder, Lifetime.Scoped);
+            Register.UI(builder, Lifetime.Scoped);
+            
             builder.Register<LobbyEntry>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
         }
     }
