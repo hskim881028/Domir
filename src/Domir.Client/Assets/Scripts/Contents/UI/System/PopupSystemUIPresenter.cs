@@ -1,15 +1,23 @@
-﻿using Domir.Client.Common.UI.Contract;
-using Domir.Client.Common.UI.Navigation;
-using Domir.Client.Common.UI.Presenter;
+﻿using Domir.Client.Contents.Command;
 using Domir.Client.Contents.UI.Generated;
+using Domir.Client.Core.UI.Contract;
+using Domir.Client.Core.UI.Navigation;
+using Domir.Client.Core.UI.Presenter;
 
 namespace Domir.Client.Contents.UI.System
 {
     public class PopupSystemUIPresenter : SystemUIPresenter<PopupSystemUIView, IPopupSystemUIMessage>, IPopupSystemUIMessage
     {
+        private readonly CommandExecutor _commandExecutor;
         public override int Priority => 0;
 
-        public PopupSystemUIPresenter(PopupSystemUIView view, IUINavigation navigation) : base(view, navigation) { }
+        public PopupSystemUIPresenter(
+            PopupSystemUIView view,
+            IUINavigation navigation,
+            CommandExecutor commandExecutor) : base(view, navigation)
+        {
+            _commandExecutor = commandExecutor;
+        }
 
         public void Confirm()
         {

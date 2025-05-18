@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Domir.Client.Common.UI.Contract;
 using Domir.Client.Common.UI.Core;
-using Domir.Client.Common.UI.Navigation;
-using Domir.Client.Common.UI.Presenter;
+using Domir.Client.Core.UI.Contract;
+using Domir.Client.Core.UI.Navigation;
+using Domir.Client.Core.UI.Presenter;
 using UnityEngine;
 
 namespace Domir.Client.Contents.UI.Static

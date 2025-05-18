@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Domir.Client.Infrastructure;
+using Domir.Client.Core.Infrastructure;
 using MagicOnion.Client;
 
 namespace Domir.Client.Network.ClientFilters

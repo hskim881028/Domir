@@ -1,18 +1,23 @@
-﻿using UnityEngine;
+﻿using Domir.Client.Core.Component;
+using UnityEngine;
 
 namespace Domir.Client.Services
 {
     public sealed class CameraService
     {
-        private readonly Camera _mainCamera;
-        public CameraService(Camera mainCamera)
+        private readonly CameraSet _cameraSet;
+
+        public Camera MainCamera => _cameraSet.MainCamera;
+        public Camera UICamera => _cameraSet.UICamera;
+
+        public CameraService(CameraSet cameraSet)
         {
-            _mainCamera = mainCamera;
+            _cameraSet = cameraSet;
         }
 
         public void SetColor(Color color)
         {
-            _mainCamera.backgroundColor = color;
+            _cameraSet.MainCamera.backgroundColor = color;
         }
     }
 }

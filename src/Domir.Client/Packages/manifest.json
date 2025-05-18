@@ -1,6 +1,9 @@
 {
   "dependencies": {
+    "com.boxqkrtm.ide.cursor": "https://github.com/boxqkrtm/com.unity.ide.cursor.git",
     "com.cysharp.magiconion.client.unity": "https://github.com/Cysharp/MagicOnion.git?path=src/MagicOnion.Client.Unity/Assets/Scripts/MagicOnion.Client.Unity#7.0.2",
+    "com.cysharp.messagepipe": "https://github.com/Cysharp/MessagePipe.git?path=src/MessagePipe.Unity/Assets/Plugins/MessagePipe#1.8.1",
+    "com.cysharp.messagepipe.vcontainer": "https://github.com/Cysharp/MessagePipe.git?path=src/MessagePipe.Unity/Assets/Plugins/MessagePipe.VContainer#1.8.1",
     "com.cysharp.slnmerge": "https://github.com/Cysharp/SlnMerge.git?path=src",
     "com.cysharp.yetanotherhttphandler": "https://github.com/Cysharp/YetAnotherHttpHandler.git?path=src/YetAnotherHttpHandler#1.10.0",
     "com.github-glitchenzo.nugetforunity": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src/NuGetForUnity",
@@ -8,6 +11,7 @@
     "com.unity.feature.2d": "2.0.1",
     "com.unity.ide.rider": "3.0.36",
     "com.unity.inputsystem": "1.14.0",
+    "com.unity.memoryprofiler": "1.1.6",
     "com.unity.multiplayer.center": "1.0.0",
     "com.unity.netcode.gameobjects": "2.3.2",
     "com.unity.render-pipelines.universal": "17.1.0",

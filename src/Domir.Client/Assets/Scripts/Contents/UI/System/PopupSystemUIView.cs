@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using Domir.Client.Common.Component;
-using Domir.Client.Common.UI.Contract;
-using Domir.Client.Common.UI.View;
+using Domir.Client.Core.Component;
+using Domir.Client.Core.UI.Contract;
+using Domir.Client.Core.UI.View;
 using TMPro;
 using UnityEngine;
 

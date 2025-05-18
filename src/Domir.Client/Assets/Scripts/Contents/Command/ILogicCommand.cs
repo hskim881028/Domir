@@ -1,7 +1,9 @@
-﻿namespace Domir.Client.Contents.Command
+﻿using Cysharp.Threading.Tasks;
+
+namespace Domir.Client.Contents.Command
 {
     public interface ILogicCommand : ICommand
     {
-        public void Render();
+        public UniTaskVoid PostExecuteAsync();
     }
 }

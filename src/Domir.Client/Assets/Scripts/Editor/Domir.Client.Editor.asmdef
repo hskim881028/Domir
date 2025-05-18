@@ -2,7 +2,7 @@
     "name": "Domir.Client.Editor",
     "rootNamespace": "Domir.Client",
     "references": [
-        "Domir.Client.Common"
+        "Domir.Client.Core"
     ],
     "includePlatforms": [
         "Editor"

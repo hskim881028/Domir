@@ -3,15 +3,17 @@
     "rootNamespace": "Domir.Client",
     "references": [
         "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:1491147abca9d7d4bb7105af628b223e",
         "GUID:350d0af80fb7b7947a59de66ab477547",
+        "GUID:08b38f39e2d9e594389b7a4cf4c2c338",
+        "GUID:4f682e06dbb3e624faedad9cc27106cc",
         "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
-        "GUID:018b0bb14470b414cbde05f0601b1ace",
         "GUID:64e75574651c6bd4aac37f6dea41fbc7",
-        "GUID:508775d8ca42b9144aa367ad0efc4ab8",
-        "GUID:7b4f2210bab488f4088b1d44d3caeed6",
         "GUID:a51a9bc71a0eb32438fecaf03e24a83d",
         "GUID:576bdd5c406fb1c469b10dec1a693451",
-        "GUID:936538edb50275a4dac3b48be34f0a70"
+        "GUID:66f04afe3220a2d46bdd77b109fba586",
+        "GUID:7b4f2210bab488f4088b1d44d3caeed6",
+        "GUID:b838f6683bde337409b7dd48a3ad70de"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

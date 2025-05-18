@@ -1,4 +1,4 @@
-﻿using Domir.Client.Common.UI.View;
+﻿using Domir.Client.Core.UI.View;
 
 namespace Domir.Client.Contents.UI.Stack
 {

@@ -1,10 +1,12 @@
 ﻿using Cysharp.Threading.Tasks;
+using Domir.Client.Contents.UI.Generated;
+using Domir.Client.Core.UI.Contract;
 using Domir.Shared.Services;
 using UnityEngine;
 
 namespace Domir.Client.Contents.Command.Implementation
 {
-    public class Login : LogicCommand
+    public sealed class Login : LogicCommand
     {
         public Login()
         {
@@ -21,8 +23,15 @@ namespace Domir.Client.Contents.Command.Implementation
             return true;
         }
 
-        public override void Render()
+        public override async UniTaskVoid PostExecuteAsync()
         {
+            Debug.Log("Show start");
+            // var handle = await _navigation.ShowAsync(SystemUIId.NetworkWaiting);
+            SceneScopeManager.LoadScope("Lobby");
+            var handle = await UINavigation.ShowSystemUIAsync(SystemUIId.Popup, new PopupUIParam("t", "test", "ok", "no", true));
+            Debug.Log("Show End");
+            await handle.WaitUntilClosedAsync();
+            Debug.Log("Hide End");
         }
     }
 }

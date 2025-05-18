@@ -11,6 +11,7 @@ namespace Domir.Client.Contents.Command
         {
             _resolver = resolver;
             _executor = executor;
+            resolver.Diagnostics.GetDiagnosticsInfos();
         }
 
         public void ExecuteInput<T>() where T : IInputCommand

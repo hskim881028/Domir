@@ -1,6 +1,6 @@
-﻿using Domir.Client.Common.UI.Core;
-using Domir.Client.Common.UI.Navigation;
-using Domir.Client.Common.UI.Presenter;
+﻿using Domir.Client.Core.UI;
+using Domir.Client.Core.UI.Navigation;
+using Domir.Client.Core.UI.Presenter;
 
 namespace Domir.Client.Contents.UI.System
 {

@@ -1,4 +1,4 @@
-﻿using Domir.Client.Infrastructure;
+﻿using Domir.Client.Core.Infrastructure;
 using Domir.Shared.Common;
 using Domir.Shared.Response;
 

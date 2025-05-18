@@ -1,5 +1,5 @@
 ﻿using System;
-using Domir.Client.Common.UI.Core;
+using Domir.Client.Core.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -11,6 +11,9 @@ namespace Domir.Client.Services
         private readonly InputActionAsset _inputAction;
         private readonly EventSystem _eventSystem;
 
+        private const KeyCode LOAD_SCOPE_KEY = KeyCode.Z;
+        private const KeyCode UNLOAD_SCOPE_KEY = KeyCode.X;
+
         public InputService(
             InputActionAsset inputAction,
             EventSystem eventSystem)
@@ -18,6 +21,16 @@ namespace Domir.Client.Services
             _inputAction = inputAction;
             _eventSystem = eventSystem;
             BindAction("UI/Cancel", Cancel);
+        }
+
+        /// <summary>
+        /// 스코프 컨트롤러에 대한 키 입력 처리를 등록합니다.
+        /// </summary>
+        public void RegisterScopeControls(Action loadScope, Action unloadScope)
+        {
+            // Update 메서드에서 호출될 입력 처리 이벤트를 등록
+            InputProcessor.Instance.RegisterKeyDownEvent(LOAD_SCOPE_KEY, loadScope);
+            InputProcessor.Instance.RegisterKeyDownEvent(UNLOAD_SCOPE_KEY, unloadScope);
         }
 
         private void BindAction(string actionName, Action<InputAction.CallbackContext> callback)
