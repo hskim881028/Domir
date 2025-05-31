@@ -1,5 +1,5 @@
 ﻿using System;
-using Domir.Client.Common.UI.Core;
+using Domir.Client.Core.UI;
 using UnityEngine;
 
 namespace Domir.Client.Editor
@@ -15,10 +15,10 @@ namespace Domir.Client.Editor
         public static readonly string NamespaceContentsStack = $"{NamespaceUI}.{UIConfig.Stack}";
         public static readonly string NamespaceContentsSystem = $"{NamespaceUI}.{UIConfig.System}";
 
-        private const string UsingUI = "using Domir.Client.Common.UI";
+        private const string UsingUI = "using Domir.Client.Core.UI";
         public static readonly string UsingSystem = $"using System;";
         public static readonly string UsingGeneric = $"using System.Collections.Generic;";
-        public static readonly string UsingCore = $"{UsingUI}.Core;";
+        public static readonly string UsingCore = $"{UsingUI};";
         public static readonly string UsingView = $"{UsingUI}.View;";
         public static readonly string UsingNavigation = $"{UsingUI}.Navigation;";
         public static readonly string UsingPresenter = $"{UsingUI}.Presenter;";

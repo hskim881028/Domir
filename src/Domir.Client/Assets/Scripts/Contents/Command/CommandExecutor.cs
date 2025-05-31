@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Domir.Client.Core.Command;
 using UnityEngine;
 using VContainer;
 
 namespace Domir.Client.Contents.Command
 {
-    public sealed class CommandExecutor : IDisposable
+    public sealed class CommandExecutor : ICommandExecutor, IDisposable
     {
         private readonly IObjectResolver _resolver;
         private readonly Queue<IInputCommand> _inputCommands = new();

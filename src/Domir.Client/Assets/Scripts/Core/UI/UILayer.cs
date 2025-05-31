@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnitGenerator;
 
-namespace Domir.Client.Common.UI.Core
+namespace Domir.Client.Core.UI
 {
     [UnitOf(typeof(int), UnitGenerateOptions.ImplicitOperator | UnitGenerateOptions.Comparable)]
     public readonly partial struct UILayer

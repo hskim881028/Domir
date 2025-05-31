@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Domir.Client.Common.UI.Core;
+using Domir.Client.Core.UI;
 
 namespace Domir.Client.Core.UI.Navigation
 {

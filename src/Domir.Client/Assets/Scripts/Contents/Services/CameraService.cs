@@ -1,7 +1,7 @@
 ﻿using Domir.Client.Core.Component;
 using UnityEngine;
 
-namespace Domir.Client.Services
+namespace Domir.Client.Contents.Services
 {
     public sealed class CameraService
     {

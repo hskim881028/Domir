@@ -1,15 +1,16 @@
 using Domir.Client.Contents.Command;
-using Domir.Client.Contents.Command.Implementation;
+using Domir.Client.Contents.Services;
 using Domir.Client.Contents.UI;
 using Domir.Client.Contents.UI.Generated;
+using Domir.Client.Core.Command;
 using Domir.Client.Core.Messages;
 using Domir.Client.Core.Scope;
 using Domir.Client.Core.UI;
 using Domir.Client.Core.UI.Navigation;
+using Domir.Client.Data.Repository;
 using Domir.Client.Network;
 using Domir.Client.Network.ClientFilters;
 using Domir.Client.ScriptableObjects;
-using Domir.Client.Services;
 using MagicOnion.Client;
 using MessagePipe;
 using UnityEngine;
@@ -30,10 +31,11 @@ namespace Domir.Client.DI
             builder.RegisterMessageBroker<SceneScopeMessage>(options);
 
             RegisterComponents(builder, Lifetime.Singleton);
+            RegisterRepository(builder, Lifetime.Singleton);
             RegisterNetwork(builder, Lifetime.Singleton);
             RegisterServices(builder, Lifetime.Singleton);
             RegisterCommands(builder, Lifetime.Singleton);
-
+            
             builder.Register<ISceneScopeManager, SceneScopeManager>(Lifetime.Singleton);
             RegisterUI(builder, Lifetime.Singleton);
 
@@ -55,6 +57,11 @@ namespace Domir.Client.DI
             builder.RegisterComponentInNewPrefab(_components.CameraSet, lifetime).UnderTransform(transform);
             builder.RegisterComponentInNewPrefab(_components.GlobalLight, lifetime).UnderTransform(transform);
         }
+        
+        private void RegisterRepository(IContainerBuilder builder, Lifetime lifetime)
+        {
+            builder.Register<UserRepository>(lifetime);
+        }
 
         private void RegisterNetwork(IContainerBuilder builder, Lifetime lifetime)
         {
@@ -70,14 +77,16 @@ namespace Domir.Client.DI
             builder.Register<InputService>(lifetime);
             builder.Register<CameraService>(lifetime);
             builder.Register<EnvironmentService>(lifetime);
+            builder.Register<EntitySpawnService>(lifetime);
         }
 
         private void RegisterCommands(IContainerBuilder builder, Lifetime lifetime)
         {
-            builder.Register<CommandExecutor>(lifetime);
-            builder.Register<CommandHandler>(lifetime);
+            builder.Register<ICommandExecutor, CommandExecutor>(lifetime);
             builder.Register<Login>(lifetime);
-            builder.Register<OnClickTester>(lifetime);
+            builder.Register<StartHost>(lifetime);
+            builder.Register<StartClient>(lifetime);
+            builder.Register<JoinWorld>(lifetime);
         }
     }
 }

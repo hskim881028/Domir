@@ -1,14 +1,13 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
-using Domir.Client.Common.UI.Core;
+﻿using Cysharp.Threading.Tasks;
 using Domir.Client.Contents.Command;
-using Domir.Client.Contents.Command.Implementation;
+using Domir.Client.Contents.Services;
 using Domir.Client.Contents.UI;
 using Domir.Client.Contents.UI.Generated;
+using Domir.Client.Core.Command;
 using Domir.Client.Core.Scope;
+using Domir.Client.Core.UI;
 using Domir.Client.Core.UI.Contract;
 using Domir.Client.Core.UI.Navigation;
-using Domir.Client.Services;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -16,14 +15,14 @@ namespace Domir.Client.DI
 {
     public sealed class ApplicationEntry : IStartable, ITickable, IPostTickable
     {
-        private readonly CommandExecutor _commandExecutor;
+        private readonly ICommandExecutor _commandExecutor;
         private readonly IUINavigation _navigation;
-        private readonly ISceneScopeManager _sceneScopeManager;
         private readonly CameraService _cameraService;
 
         public ApplicationEntry(
             NetworkService networkService,
-            CommandExecutor commandExecutor,
+            EntitySpawnService entitySpawnService,
+            ICommandExecutor commandExecutor,
             InputService inputService,
             IUINavigation navigation,
             ISceneScopeManager sceneScopeManager,
@@ -32,7 +31,6 @@ namespace Domir.Client.DI
             networkService.Connect();
             _commandExecutor = commandExecutor;
             _navigation = navigation;
-            _sceneScopeManager = sceneScopeManager;
             _cameraService = cameraService;
             Debug.Log("LobbyEntry.constructor");
         }
@@ -59,12 +57,11 @@ namespace Domir.Client.DI
         {
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                _commandExecutor.Enqueue<OnClickTester>();
             }
 
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
-                
+                _navigation.ShowSystemUIAsync(SystemUIId.Popup, new PopupUIParam("t2", "test", "ok", "no", true));
             }
 
             if (Input.GetKeyDown(KeyCode.W))
@@ -89,7 +86,7 @@ namespace Domir.Client.DI
 
             if (Input.GetKeyDown(KeyCode.S))
             {
-                ShowStatic(UILayers.Test).Forget();
+                ShowStatic(UILayers.Minimap).Forget();
             }
         }
 

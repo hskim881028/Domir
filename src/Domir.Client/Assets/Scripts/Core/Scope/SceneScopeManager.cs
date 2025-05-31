@@ -22,14 +22,15 @@ namespace Domir.Client.Core.Scope
             _publisher = publisher;
         }
 
-        public void LoadScope(string scopeName)
+        public void LoadScope(SceneScopeId scopeName)
         {
             if (_current != null)
             {
                 Unload();
             }
 
-            _current = _root.CreateChild<SceneScope>(childScopeName: scopeName);
+
+            _current = _root.CreateChild<SceneScope>(childScopeName: ToString(scopeName));
             SceneManager.MoveGameObjectToScene(_current.gameObject, SceneManager.GetActiveScene());
             _publisher.Publish(SceneScopeMessage.Load(_current));
         }
@@ -51,6 +52,15 @@ namespace Domir.Client.Core.Scope
 
             GC.Collect();
             Resources.UnloadUnusedAssets();
+        }
+
+        private string ToString(SceneScopeId scopeName)
+        {
+            if (scopeName == SceneScopeId.Lobby) return "Lobby";
+
+            if (scopeName == SceneScopeId.World) return "World";
+
+            return "Scope";
         }
     }
 }

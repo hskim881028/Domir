@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using Domir.Client.Common.UI.Core;
 using Domir.Client.Core.Exceptions;
 using Domir.Client.Core.UI.Contract;
 using Domir.Client.Core.UI.Presenter;

@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Domir.Client.Services
+namespace Domir.Client.Contents.Services
 {
     /// <summary>
     /// 키보드 입력을 처리하는 싱글톤 클래스입니다.
     /// </summary>
-    public class InputProcessor : MonoBehaviour
+    public sealed class InputProcessor : MonoBehaviour
     {
         private static InputProcessor _instance;
 

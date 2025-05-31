@@ -1,5 +1,5 @@
 ﻿using System.Threading;
-using Domir.Client.Common.UI.Core;
+using Domir.Client.Core.UI;
 using Domir.Client.Core.UI.Contract;
 
 namespace Domir.Client.Core.UI.Navigation

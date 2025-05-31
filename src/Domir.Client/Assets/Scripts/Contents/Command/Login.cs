@@ -1,10 +1,10 @@
 ﻿using Cysharp.Threading.Tasks;
-using Domir.Client.Contents.UI.Generated;
-using Domir.Client.Core.UI.Contract;
+using Domir.Client.Contents.UI;
+using Domir.Client.Core.Scope;
 using Domir.Shared.Services;
 using UnityEngine;
 
-namespace Domir.Client.Contents.Command.Implementation
+namespace Domir.Client.Contents.Command
 {
     public sealed class Login : LogicCommand
     {
@@ -20,18 +20,15 @@ namespace Domir.Client.Contents.Command.Implementation
             if (!NetworkService.HandleResponse(response)) return false;
 
             Debug.Log($"[StatusCode]: {response.StatusCode}");
+            SceneScopeManager.LoadScope(SceneScopeId.Lobby);
             return true;
         }
 
-        public override async UniTaskVoid PostExecuteAsync()
+        public override async UniTask PostExecuteAsync()
         {
             Debug.Log("Show start");
             // var handle = await _navigation.ShowAsync(SystemUIId.NetworkWaiting);
-            SceneScopeManager.LoadScope("Lobby");
-            var handle = await UINavigation.ShowSystemUIAsync(SystemUIId.Popup, new PopupUIParam("t", "test", "ok", "no", true));
-            Debug.Log("Show End");
-            await handle.WaitUntilClosedAsync();
-            Debug.Log("Hide End");
+            await UINavigation.ApplyUILayer(UILayers.Login);
         }
     }
 }

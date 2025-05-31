@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-namespace Domir.Client.Services
+namespace Domir.Client.Contents.Services
 {
     public sealed class InputService
     {

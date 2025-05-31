@@ -1,5 +1,4 @@
-﻿using Domir.Client.Common.UI.Core;
-using Domir.Client.Core.UI;
+﻿using Domir.Client.Core.UI;
 using Domir.Client.Core.UI.View;
 using TMPro;
 using UnityEngine;

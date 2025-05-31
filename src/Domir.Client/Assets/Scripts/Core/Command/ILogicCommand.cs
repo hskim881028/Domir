@@ -1,9 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
 
-namespace Domir.Client.Contents.Command
+namespace Domir.Client.Core.Command
 {
     public interface ILogicCommand : ICommand
     {
-        public UniTaskVoid PostExecuteAsync();
+        public UniTask PostExecuteAsync();
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domir.Client.Common.UI.Core;
 using Domir.Client.Core.UI.Presenter;
 
 namespace Domir.Client.Core.UI

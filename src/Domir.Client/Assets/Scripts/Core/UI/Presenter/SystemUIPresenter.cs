@@ -7,7 +7,7 @@ namespace Domir.Client.Core.UI.Presenter
         where TView : SystemUIView<TMessage>
         where TMessage : IUIMessage
     {
-        public abstract int Priority { get; }
+        public abstract UIPriority Priority { get; }
 
         protected SystemUIPresenter(TView view, IUINavigation navigation) : base(view, navigation) { }
     }

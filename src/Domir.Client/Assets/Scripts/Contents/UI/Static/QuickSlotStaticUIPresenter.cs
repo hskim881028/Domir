@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Domir.Client.Common.UI.Core;
+using Domir.Client.Core.UI;
 using Domir.Client.Core.UI.Contract;
 using Domir.Client.Core.UI.Navigation;
 using Domir.Client.Core.UI.Presenter;
@@ -13,7 +13,7 @@ namespace Domir.Client.Contents.UI.Static
     {
         protected override HashSet<UILayer> Layer => UILayer.SetDefault;
 
-        public override int Priority => 0;
+        public override UIPriority Priority => UIPriority.QuickSlot;
 
         public QuickSlotStaticUIPresenter(QuickSlotStaticUIView view, IUINavigation navigation) : base(view, navigation) { }
 

@@ -1,5 +1,4 @@
-﻿using Domir.Client.Core.Infrastructure;
-using VContainer;
+﻿using VContainer;
 using VContainer.Unity;
 
 namespace Domir.Client.Core.Scope

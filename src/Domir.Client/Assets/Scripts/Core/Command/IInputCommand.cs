@@ -1,4 +1,4 @@
-﻿namespace Domir.Client.Contents.Command
+﻿namespace Domir.Client.Core.Command
 {
     public interface IInputCommand : ICommand
     {

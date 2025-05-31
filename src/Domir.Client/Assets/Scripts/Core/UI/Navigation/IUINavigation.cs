@@ -1,5 +1,4 @@
 ﻿using Cysharp.Threading.Tasks;
-using Domir.Client.Common.UI.Core;
 using Domir.Client.Core.UI.Contract;
 
 namespace Domir.Client.Core.UI.Navigation

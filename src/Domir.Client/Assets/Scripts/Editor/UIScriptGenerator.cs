@@ -145,13 +145,13 @@ namespace Domir.Client.Editor
             switch (_uiType)
             {
                 case EditorConfig.UIType.Static:
-                    sb.AppendLine($"\t\tprotected override HashSet<UILayer> Layer => throw new NotImplementedException();");
-                    sb.AppendLine($"\t\tpublic override int Priority => throw new NotImplementedException();");
+                    sb.AppendLine($"\t\tprotected override HashSet<UILayer> Layer => UILayer.SetDefault;");
+                    sb.AppendLine($"\t\tpublic override UIPriority Priority => UIPriority.Default;");
                     break;
                 case EditorConfig.UIType.Stack:
                     break;
                 case EditorConfig.UIType.System:
-                    sb.AppendLine($"\t\tpublic override int Priority => throw new NotImplementedException();");
+                    sb.AppendLine($"\t\tpublic override UIPriority Priority => UIPriority.Default;");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

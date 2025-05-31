@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domir.Client.Common.UI.Core;
 using Domir.Client.Contents.UI.Generated;
 using Domir.Client.Core.Infrastructure;
 using Domir.Client.Core.Messages;
@@ -21,7 +20,6 @@ namespace Domir.Client.Contents.UI
     public sealed class UIManager : IUIManager
     {
         private readonly LifetimeScope _rooLifetimeScope;
-        private readonly ISceneScopeManager _sceneScopeManager;
         private readonly Dictionary<UIId, (Type type, string prefabPath)> _presenters;
         private readonly Dictionary<Type, UICanvasScope> _canvas = new();
         private readonly Dictionary<UIId, UIScope> _ui = new();
@@ -30,12 +28,10 @@ namespace Domir.Client.Contents.UI
 
         public UIManager(
             LifetimeScope rooLifetimeScope,
-            ISceneScopeManager sceneScopeManager,
             Dictionary<UIId, (Type type, string prefabPath)> presenters,
             ISubscriber<SceneScopeMessage> subscriber)
         {
             _rooLifetimeScope = rooLifetimeScope;
-            _sceneScopeManager = sceneScopeManager;
             _presenters = presenters;
             subscriber.Subscribe(OnSceneScopeMessage).AddTo(ref _disposable);
         }

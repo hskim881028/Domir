@@ -2,6 +2,6 @@
 {
     public interface ISystemUIPresenter : IUIPresenter
     {
-        public int Priority { get; }
+        public UIPriority Priority { get; }
     }
 }

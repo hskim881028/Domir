@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 
-namespace Domir.Client.Contents.Command
+namespace Domir.Client.Core.Command
 {
     public interface ICommand
     {

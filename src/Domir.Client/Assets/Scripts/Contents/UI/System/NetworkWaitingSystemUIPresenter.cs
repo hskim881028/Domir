@@ -6,7 +6,7 @@ namespace Domir.Client.Contents.UI.System
 {
     public class NetworkWaitingSystemUIPresenter : SystemUIPresenter<NetworkWaitingSystemUIView, IUIMessage>, IUIMessage
     {
-        public override int Priority => 99;
+        public override UIPriority Priority => UIPriority.NetworkWaiting;
 
         public NetworkWaitingSystemUIPresenter(NetworkWaitingSystemUIView view, IUINavigation navigation) : base(view, navigation) { }
     }

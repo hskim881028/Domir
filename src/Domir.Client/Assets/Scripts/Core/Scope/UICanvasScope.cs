@@ -1,6 +1,6 @@
 ﻿using System;
-using Domir.Client.Common.UI.Core;
 using Domir.Client.Core.Infrastructure;
+using Domir.Client.Core.UI;
 using Domir.Client.Core.UI.Presenter;
 using UnityEngine;
 using VContainer.Unity;

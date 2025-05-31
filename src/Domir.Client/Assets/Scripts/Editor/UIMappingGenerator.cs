@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
-using Domir.Client.Common.UI.Core;
+using Domir.Client.Core.UI;
 using Domir.Client.Editor;
 using UnityEditor;
 using UnityEngine;

@@ -1,4 +1,4 @@
-﻿namespace Domir.Client.Common.UI.Core
+﻿namespace Domir.Client.Core.UI
 {
     public static class UIConfig
     {
