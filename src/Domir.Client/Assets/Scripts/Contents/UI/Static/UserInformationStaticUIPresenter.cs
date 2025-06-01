@@ -25,7 +25,7 @@ namespace Domir.Client.Contents.UI.Static
 
         public override void OnShowEnter()
         {
-            _view.Set(_userRepository.Model);
+            _view.Set(_userRepository.Get("test"));
             base.OnShowEnter();
         }
     }

@@ -71,6 +71,18 @@ namespace Domir.Client.Core.Infrastructure
 #endif
         }
         
+        public static void Log(this object obj, Vector2 value, [CallerMemberName] string caller = "")
+        {
+#if UNITY_EDITOR
+            if (!Debug.isDebugBuild) return;
+
+            using var sb = ZString.CreateStringBuilder();
+            sb.Append($"<color=#BA68C8>[Frame: {Time.frameCount}] [{obj.GetType().Name}.");
+            sb.Append($"<color=#D7B2E2>{caller}</color>]</color> {value}");
+            Debug.Log(sb.ToString());
+#endif
+        }
+        
         public static void Log(this object obj, ulong value, [CallerMemberName] string caller = "")
         {
 #if UNITY_EDITOR

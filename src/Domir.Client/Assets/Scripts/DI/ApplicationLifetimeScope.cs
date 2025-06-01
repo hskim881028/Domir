@@ -8,9 +8,10 @@ using Domir.Client.Core.Scope;
 using Domir.Client.Core.UI;
 using Domir.Client.Core.UI.Navigation;
 using Domir.Client.Data.Repository;
+using Domir.Client.Data.Store;
+using Domir.Client.DI.ScriptableObjects;
 using Domir.Client.Network;
 using Domir.Client.Network.ClientFilters;
-using Domir.Client.ScriptableObjects;
 using MagicOnion.Client;
 using MessagePipe;
 using UnityEngine;
@@ -27,29 +28,29 @@ namespace Domir.Client.DI
         {
             base.Configure(builder);
 
-            var options = builder.RegisterMessagePipe();
-            builder.RegisterMessageBroker<SceneScopeMessage>(options);
-
-            RegisterComponents(builder, Lifetime.Singleton);
-            RegisterRepository(builder, Lifetime.Singleton);
-            RegisterNetwork(builder, Lifetime.Singleton);
-            RegisterServices(builder, Lifetime.Singleton);
-            RegisterCommands(builder, Lifetime.Singleton);
-            
-            builder.Register<ISceneScopeManager, SceneScopeManager>(Lifetime.Singleton);
-            RegisterUI(builder, Lifetime.Singleton);
+            Message(builder);
+            Component(builder, Lifetime.Singleton);
+            Store(builder, Lifetime.Singleton);
+            Repository(builder, Lifetime.Singleton);
+            Network(builder, Lifetime.Singleton);
+            Service(builder, Lifetime.Singleton);
+            Command(builder, Lifetime.Singleton);
+            Scene(builder, Lifetime.Singleton);
+            UI(builder, Lifetime.Singleton);
 
             builder.Register<ApplicationEntry>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
         }
 
-        private void RegisterUI(IContainerBuilder builder, Lifetime lifetime)
+        private static void Message(IContainerBuilder builder)
         {
-            builder.Register<IUIManager, UIManager>(lifetime).WithParameter(UIMapping.UI);
-            builder.Register<IUINavigationNodePool, UINavigationNodePool>(lifetime);
-            builder.Register<IUINavigation, UINavigation>(lifetime);
+            var options = builder.RegisterMessagePipe();
+            builder.RegisterMessageBroker<SceneScopeMessage>(options);
+            builder.RegisterMessageBroker<MoveStartedMessage>(options);
+            builder.RegisterMessageBroker<MovePerformedMessage>(options);
+            builder.RegisterMessageBroker<MoveCanceledMessage>(options);
         }
 
-        private void RegisterComponents(IContainerBuilder builder, Lifetime lifetime)
+        private void Component(IContainerBuilder builder, Lifetime lifetime)
         {
             builder.RegisterInstance(_components.InputAction);
             builder.RegisterComponentInNewPrefab(_components.NetworkManager, lifetime);
@@ -57,13 +58,18 @@ namespace Domir.Client.DI
             builder.RegisterComponentInNewPrefab(_components.CameraSet, lifetime).UnderTransform(transform);
             builder.RegisterComponentInNewPrefab(_components.GlobalLight, lifetime).UnderTransform(transform);
         }
-        
-        private void RegisterRepository(IContainerBuilder builder, Lifetime lifetime)
+
+        private void Store(IContainerBuilder builder, Lifetime lifetime)
+        {
+            builder.Register<UserStore>(lifetime);
+        }
+
+        private void Repository(IContainerBuilder builder, Lifetime lifetime)
         {
             builder.Register<UserRepository>(lifetime);
         }
 
-        private void RegisterNetwork(IContainerBuilder builder, Lifetime lifetime)
+        private void Network(IContainerBuilder builder, Lifetime lifetime)
         {
             builder.Register<IClientFilter, LoggingFilter>(lifetime).AsSelf();
             builder.Register<IClientFilter, RetryFilter>(lifetime).AsSelf();
@@ -72,7 +78,7 @@ namespace Domir.Client.DI
             builder.Register<NetworkService>(lifetime);
         }
 
-        private void RegisterServices(IContainerBuilder builder, Lifetime lifetime)
+        private void Service(IContainerBuilder builder, Lifetime lifetime)
         {
             builder.Register<InputService>(lifetime);
             builder.Register<CameraService>(lifetime);
@@ -80,13 +86,27 @@ namespace Domir.Client.DI
             builder.Register<EntitySpawnService>(lifetime);
         }
 
-        private void RegisterCommands(IContainerBuilder builder, Lifetime lifetime)
+        private void Command(IContainerBuilder builder, Lifetime lifetime)
         {
             builder.Register<ICommandExecutor, CommandExecutor>(lifetime);
             builder.Register<Login>(lifetime);
             builder.Register<StartHost>(lifetime);
             builder.Register<StartClient>(lifetime);
+            builder.Register<CreateWorld>(lifetime);
             builder.Register<JoinWorld>(lifetime);
+        }
+
+        private static void Scene(IContainerBuilder builder, Lifetime lifetime)
+        {
+            builder.Register<ISceneScopeManager, SceneScopeManager>(lifetime);
+            builder.Register<SceneService>(lifetime);
+        }
+
+        private void UI(IContainerBuilder builder, Lifetime lifetime)
+        {
+            builder.Register<IUIManager, UIManager>(lifetime).WithParameter(UIMapping.UI);
+            builder.Register<IUINavigationNodePool, UINavigationNodePool>(lifetime);
+            builder.Register<IUINavigation, UINavigation>(lifetime);
         }
     }
 }

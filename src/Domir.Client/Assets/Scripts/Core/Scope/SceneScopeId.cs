@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using UnitGenerator;
+﻿using UnitGenerator;
 
 namespace Domir.Client.Core.Scope
 {
@@ -8,5 +7,14 @@ namespace Domir.Client.Core.Scope
     {
         public static SceneScopeId Lobby = 0;
         public static SceneScopeId World = 1;
+
+        public string ToName()
+        {
+            if (this == Lobby) return "Lobby";
+
+            if (this == World) return "World";
+
+            return "Scope";
+        }
     }
 }

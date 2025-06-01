@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: GlobalComponents
   m_EditorClassIdentifier: 
   _inputAction: {fileID: -944628639613478452, guid: acf9b77637a655a40b5efda86fa53c33, type: 3}
-  _networkManager: {fileID: 5806455570120561812, guid: 1758d8ed3f5fd6f478ffe640ef99cc00, type: 3}
-  _eventSystem: {fileID: 848877018441154513, guid: 295b143c20b327a4aac1d8b4dbe2c540, type: 3}
-  _cameraSet: {fileID: 6011455584542487119, guid: 43ee7df1b2c7b7a41b6ea20dc37719d1, type: 3}
-  _globalLight: {fileID: 4288031642989346144, guid: c869cce6d806a204e98b36a008e3c656, type: 3}
-  _lobby: {fileID: 3610306971593739736, guid: 5ec98edf4f08d9e40aa0bfd60673c078, type: 3}
-  _lobbyUI: {fileID: 5741904779513480323, guid: 70a227155fb8ef34a9e035dcaa63d49f, type: 3}
+  _networkManager: {fileID: 5806455570120561812, guid: 798082594a1811347bb5ec6239ce5199, type: 3}
+  _eventSystem: {fileID: 848877018441154513, guid: 749ad138181e3ae43863b5b978ecfcc6, type: 3}
+  _cameraSet: {fileID: 6011455584542487119, guid: 5193268458ee9b34b894633321a9e320, type: 3}
+  _globalLight: {fileID: 4288031642989346144, guid: 6984e0f219621a14cb9885238b3682f9, type: 3}

@@ -1,11 +1,12 @@
-﻿using Domir.Client.Core.Component;
+﻿using Domir.Client.Contents.Scene;
+using Domir.Client.Core.Component;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.U2D;
 
-namespace Domir.Client.ScriptableObjects
+namespace Domir.Client.DI.ScriptableObjects
 {
     [CreateAssetMenu(fileName = "GlobalComponents", menuName = "ScriptableObjects/GlobalComponents")]
     public class GlobalComponents : ScriptableObject

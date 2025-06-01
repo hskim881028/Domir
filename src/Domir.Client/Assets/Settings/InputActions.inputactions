@@ -27,7 +27,7 @@
                     "name": "Attack",
                     "type": "Button",
                     "id": "cec05510-3fb2-48b4-a5bd-b2ee30a73b4a",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -492,7 +492,7 @@
                     "name": "Submit",
                     "type": "Button",
                     "id": "78465b14-2f05-4641-8f22-e9e94f060977",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false

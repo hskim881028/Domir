@@ -13,7 +13,7 @@ using VContainer.Unity;
 
 namespace Domir.Client.DI
 {
-    public sealed class ApplicationEntry : IStartable, ITickable, IPostTickable
+    public sealed class ApplicationEntry : IStartable, ITickable
     {
         private readonly ICommandExecutor _commandExecutor;
         private readonly IUINavigation _navigation;
@@ -26,6 +26,7 @@ namespace Domir.Client.DI
             InputService inputService,
             IUINavigation navigation,
             ISceneScopeManager sceneScopeManager,
+            SceneService sceneService,
             CameraService cameraService)
         {
             networkService.Connect();
@@ -44,20 +45,13 @@ namespace Domir.Client.DI
 
         public void Tick()
         {
-            _commandExecutor.UpdateInputAsync().Forget();
+            _commandExecutor.TickAsync().Forget();
             InputTest();
-        }
-
-        public void PostTick()
-        {
-            _commandExecutor.UpdateLogicAsync().Forget();
         }
 
         private void InputTest()
         {
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-            }
+            if (Input.GetKeyDown(KeyCode.Z)) { }
 
             if (Input.GetKeyDown(KeyCode.Q))
             {

@@ -5,6 +5,7 @@ namespace Domir.Client.Core.Scope
 {
     public class SceneScope : LifetimeScope
     {
+        public SceneScopeId Id { get; set; }
         public UIRootScope UIRoot { get; private set; }
         public EntityScope Entity { get; private set; }
 

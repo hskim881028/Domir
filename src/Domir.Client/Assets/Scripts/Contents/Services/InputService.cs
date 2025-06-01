@@ -1,5 +1,8 @@
 ﻿using System;
+using Domir.Client.Core.Infrastructure;
+using Domir.Client.Core.Messages;
 using Domir.Client.Core.UI;
+using MessagePipe;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -10,30 +13,31 @@ namespace Domir.Client.Contents.Services
     {
         private readonly InputActionAsset _inputAction;
         private readonly EventSystem _eventSystem;
-
-        private const KeyCode LOAD_SCOPE_KEY = KeyCode.Z;
-        private const KeyCode UNLOAD_SCOPE_KEY = KeyCode.X;
+        private readonly IPublisher<MoveStartedMessage> _moveStarted;
+        private readonly IPublisher<MovePerformedMessage> _movePerformed;
+        private readonly IPublisher<MoveCanceledMessage> _moveCancel;
 
         public InputService(
             InputActionAsset inputAction,
-            EventSystem eventSystem)
+            EventSystem eventSystem,
+            IPublisher<MoveStartedMessage> moveStarted,
+            IPublisher<MovePerformedMessage> movePerformed,
+            IPublisher<MoveCanceledMessage> moveCancel)
         {
             _inputAction = inputAction;
             _eventSystem = eventSystem;
-            BindAction("UI/Cancel", Cancel);
+            _moveStarted = moveStarted;
+            _movePerformed = movePerformed;
+            _moveCancel = moveCancel;
+            BindAction("UI/Cancel", performed: Cancel);
+            BindAction("Player/Move", MoveStarted, MovePerformed, MoveCanceled);
         }
 
-        /// <summary>
-        /// 스코프 컨트롤러에 대한 키 입력 처리를 등록합니다.
-        /// </summary>
-        public void RegisterScopeControls(Action loadScope, Action unloadScope)
-        {
-            // Update 메서드에서 호출될 입력 처리 이벤트를 등록
-            InputProcessor.Instance.RegisterKeyDownEvent(LOAD_SCOPE_KEY, loadScope);
-            InputProcessor.Instance.RegisterKeyDownEvent(UNLOAD_SCOPE_KEY, unloadScope);
-        }
-
-        private void BindAction(string actionName, Action<InputAction.CallbackContext> callback)
+        private void BindAction(
+            string actionName,
+            Action<InputAction.CallbackContext> started = null,
+            Action<InputAction.CallbackContext> performed = null,
+            Action<InputAction.CallbackContext> canceled = null)
         {
             var action = _inputAction.FindAction(actionName);
             if (action == null)
@@ -42,13 +46,28 @@ namespace Domir.Client.Contents.Services
                 return;
             }
 
-            action.performed += callback;
+            if (started != null)
+            {
+                action.started += started;
+            }
+
+            if (performed != null)
+            {
+                action.performed += performed;
+            }
+
+            if (canceled != null)
+            {
+                action.canceled += canceled;
+            }
+
+
             action.Enable();
         }
 
         private void Cancel(InputAction.CallbackContext context)
         {
-            Debug.Log("Cancel");
+            this.Log();
             var currentSelected = _eventSystem.currentSelectedGameObject;
             if (currentSelected == null) return;
 
@@ -56,6 +75,27 @@ namespace Domir.Client.Contents.Services
             var selectable = currentSelected.GetComponent<IUISelectable>();
 
             if (selectable != null) { }
+        }
+
+        private void MoveStarted(InputAction.CallbackContext context)
+        {
+            var direction = context.ReadValue<Vector2>();
+            this.Log(direction);
+            _moveStarted.Publish(new MoveStartedMessage(direction));
+        }
+
+        private void MovePerformed(InputAction.CallbackContext context)
+        {
+            var direction = context.ReadValue<Vector2>();
+            this.Log(direction);
+            _movePerformed.Publish(new MovePerformedMessage(direction));
+        }
+
+        private void MoveCanceled(InputAction.CallbackContext context)
+        {
+            var direction = context.ReadValue<Vector2>();
+            this.Log(direction);
+            _moveCancel.Publish(new MoveCanceledMessage(direction));
         }
     }
 }

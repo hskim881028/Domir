@@ -2,7 +2,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-namespace Domir.Client.Contents.Entities
+namespace Domir.Client.Contents.Entity
 {
     public class UserEntity : NetworkBehaviour
     {
@@ -16,6 +16,11 @@ namespace Domir.Client.Contents.Entities
                 ? Color.green
                 : Color.blueViolet;
             GetComponent<SpriteRenderer>().color = color;
+        }
+
+        private void Update()
+        {
+      
         }
     }
 }

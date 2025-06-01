@@ -10,62 +10,32 @@ namespace Domir.Client.Contents.Command
     public sealed class CommandExecutor : ICommandExecutor, IDisposable
     {
         private readonly IObjectResolver _resolver;
-        private readonly Queue<IInputCommand> _inputCommands = new();
-        private readonly Queue<ILogicCommand> _logicCommands = new();
-        private bool _isExecutingInput;
-        private bool _isExecutingLogic;
+        private readonly Queue<ILogicCommand> _commands = new();
+        private bool _isExecuting;
 
         public CommandExecutor(IObjectResolver resolver)
         {
             _resolver = resolver;
         }
-        
+
         public void Enqueue<T>() where T : ILogicCommand
         {
             var command = _resolver.Resolve<T>();
-            _logicCommands.Enqueue(command);
+            _commands.Enqueue(command);
         }
 
-        public void Enqueue(IInputCommand command)
+        public async UniTask TickAsync()
         {
-            _inputCommands.Enqueue(command);
-        }
-
-        public void Enqueue(ILogicCommand command)
-        {
-            _logicCommands.Enqueue(command);
-        }
-
-        public async UniTask UpdateInputAsync()
-        {
-            if (_isExecutingInput)
+            if (_isExecuting)
             {
                 return;
             }
 
-            _isExecutingInput = true;
+            _isExecuting = true;
 
-            while (_inputCommands.Count > 0)
+            while (_commands.Count > 0)
             {
-                var action = _inputCommands.Dequeue();
-                await action.ExecuteAsync();
-            }
-
-            _isExecutingInput = false;
-        }
-
-        public async UniTask UpdateLogicAsync()
-        {
-            if (_isExecutingLogic)
-            {
-                return;
-            }
-
-            _isExecutingLogic = true;
-
-            while (_logicCommands.Count > 0)
-            {
-                var action = _logicCommands.Dequeue();
+                var action = _commands.Dequeue();
                 var isSuccess = await action.ExecuteAsync();
                 if (isSuccess)
                 {
@@ -73,7 +43,7 @@ namespace Domir.Client.Contents.Command
                 }
             }
 
-            _isExecutingLogic = false;
+            _isExecuting = false;
         }
 
         public void Dispose()

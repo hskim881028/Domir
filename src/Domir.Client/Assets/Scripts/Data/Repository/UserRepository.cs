@@ -2,13 +2,20 @@
 
 namespace Domir.Client.Data.Repository
 {
-    public sealed class UserRepository
+    public sealed class UserRepository : Repository<UserModel>
     {
-        public UserModel Model { get; private set; }
-
-        public void Update(UserModel model)
+        public bool TryGet(ulong clientId, out UserModel userModel)
         {
-            Model = model;
+            foreach (var (_, model) in _models)
+            {
+                if (model.ClientId != clientId) continue;
+
+                userModel = model;
+                return true;
+            }
+
+            userModel = null;
+            return false;
         }
     }
 }
