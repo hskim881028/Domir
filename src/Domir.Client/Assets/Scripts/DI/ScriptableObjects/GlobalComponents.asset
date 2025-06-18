@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acd539acbf834ce486cbd4a0fc580851, type: 3}
+  m_Name: GlobalComponents
+  m_EditorClassIdentifier: 
+  _inputAction: {fileID: -944628639613478452, guid: acf9b77637a655a40b5efda86fa53c33, type: 3}
+  _networkManager: {fileID: 5806455570120561812, guid: 798082594a1811347bb5ec6239ce5199, type: 3}
+  _eventSystem: {fileID: 848877018441154513, guid: 749ad138181e3ae43863b5b978ecfcc6, type: 3}
+  _cameraSet: {fileID: 6011455584542487119, guid: 5193268458ee9b34b894633321a9e320, type: 3}
+  _globalLight: {fileID: 4288031642989346144, guid: 6984e0f219621a14cb9885238b3682f9, type: 3}
