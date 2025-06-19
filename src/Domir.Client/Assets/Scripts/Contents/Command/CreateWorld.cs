@@ -4,7 +4,7 @@ using Domir.Client.Core.Scope;
 
 namespace Domir.Client.Contents.Command
 {
-    public class CreateWorld : LogicCommand
+    public sealed class CreateWorld : LogicCommand
     {
         public override UniTask<bool> ExecuteAsync()
         {

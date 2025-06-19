@@ -1,5 +1,4 @@
-﻿using Domir.Client.Contents.Scene;
-using Domir.Client.Core.Component;
+﻿using Domir.Client.Core.Component;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;

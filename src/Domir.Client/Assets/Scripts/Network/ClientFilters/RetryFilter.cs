@@ -5,7 +5,7 @@ using MagicOnion.Client;
 
 namespace Domir.Client.Network.ClientFilters
 {
-    public class RetryFilter : IClientFilter
+    public sealed class RetryFilter : IClientFilter
     {
         public async ValueTask<ResponseContext> SendAsync(
             RequestContext context,

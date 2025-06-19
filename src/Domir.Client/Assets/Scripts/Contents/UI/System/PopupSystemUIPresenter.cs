@@ -1,5 +1,4 @@
-﻿using Domir.Client.Contents.Command;
-using Domir.Client.Contents.UI.Generated;
+﻿using Domir.Client.Contents.UI.Generated;
 using Domir.Client.Core.Command;
 using Domir.Client.Core.UI;
 using Domir.Client.Core.UI.Contract;

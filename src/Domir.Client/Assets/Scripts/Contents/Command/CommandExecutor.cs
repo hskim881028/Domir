@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Domir.Client.Core.Command;
-using UnityEngine;
 using VContainer;
 
 namespace Domir.Client.Contents.Command
@@ -12,6 +11,7 @@ namespace Domir.Client.Contents.Command
         private readonly IObjectResolver _resolver;
         private readonly Queue<ILogicCommand> _commands = new();
         private bool _isExecuting;
+        private bool _isDisposed;
 
         public CommandExecutor(IObjectResolver resolver)
         {
@@ -26,10 +26,7 @@ namespace Domir.Client.Contents.Command
 
         public async UniTask TickAsync()
         {
-            if (_isExecuting)
-            {
-                return;
-            }
+            if (_isExecuting) return;
 
             _isExecuting = true;
 
@@ -48,7 +45,9 @@ namespace Domir.Client.Contents.Command
 
         public void Dispose()
         {
-            Debug.Log("command disposed");
+            if (_isDisposed) return;
+
+            _isDisposed = true;
             _resolver?.Dispose();
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace Domir.Client.Data.Store
 {
-    public class UserStore
+    public sealed class UserStore
     {
         public ulong ClientId { get; set; }
     }

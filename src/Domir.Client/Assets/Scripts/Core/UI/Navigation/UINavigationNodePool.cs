@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Domir.Client.Core.UI;
 
 namespace Domir.Client.Core.UI.Navigation
 {
@@ -27,10 +26,7 @@ namespace Domir.Client.Core.UI.Navigation
 
         public void Dispose()
         {
-            if (_isDisposed)
-            {
-                return;
-            }
+            if (_isDisposed) return;
 
             _isDisposed = true;
 

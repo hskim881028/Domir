@@ -8,6 +8,7 @@ namespace Domir.Client.Core.UI.View
     [RequireComponent(typeof(CanvasGroup))]
     public class UIView<TMessage> : UIViewBase, IUIView<TMessage> where TMessage : IUIMessage
     {
+        // TODO: Need to implement
         // [SerializeField] private UIViewContent _content;
 
         protected TMessage Message;
@@ -46,27 +47,33 @@ namespace Domir.Client.Core.UI.View
 
         public virtual UniTask InitializeAsync(CancellationToken token)
         {
+            // TODO: Need to implement
             return UniTask.CompletedTask;
         }
 
-        public virtual async UniTask ShowAsync(CancellationToken token, UIParam param, bool immediately = false)
+        public virtual UniTask ShowAsync(CancellationToken token, UIParam param, bool immediately = false)
         {
+            // TODO: Need to implement
+            // await _content.ShowAsync(token, immediately);
             _canvasGroup.interactable = false;
             _canvasGroup.alpha = 1;
-            // await _content.ShowAsync(token, immediately);
             _canvasGroup.interactable = true;
+            return UniTask.CompletedTask;
         }
 
-        public virtual async UniTask HideAsync(CancellationToken token, bool immediately = false)
+        public virtual UniTask HideAsync(CancellationToken token, bool immediately = false)
         {
             _canvasGroup.interactable = false;
+            // TODO: Need to implement
             // await _content.HideAsync(token, immediately);
             gameObject.SetActive(false);
+            return UniTask.CompletedTask;
         }
 
         public void Activate(float opacity = 1)
         {
             _canvasGroup.alpha = opacity;
+            // TODO: Need to implement
             // _content.transform.localScale = Vector3.one;
             gameObject.SetActive(true);
         }

@@ -1,7 +1,7 @@
-﻿using Cysharp.Text;
+﻿using System.Runtime.CompilerServices;
+using Cysharp.Text;
 using Domir.Shared.Common;
 using MagicOnion.Client;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Domir.Client.Core.Infrastructure
@@ -70,7 +70,7 @@ namespace Domir.Client.Core.Infrastructure
             Debug.Log(sb.ToString());
 #endif
         }
-        
+
         public static void Log(this object obj, Vector2 value, [CallerMemberName] string caller = "")
         {
 #if UNITY_EDITOR
@@ -82,7 +82,7 @@ namespace Domir.Client.Core.Infrastructure
             Debug.Log(sb.ToString());
 #endif
         }
-        
+
         public static void Log(this object obj, ulong value, [CallerMemberName] string caller = "")
         {
 #if UNITY_EDITOR
@@ -94,7 +94,7 @@ namespace Domir.Client.Core.Infrastructure
             Debug.Log(sb.ToString());
 #endif
         }
-        
+
         public static void Log(this object obj, int value, [CallerMemberName] string caller = "")
         {
 #if UNITY_EDITOR
@@ -106,7 +106,7 @@ namespace Domir.Client.Core.Infrastructure
             Debug.Log(sb.ToString());
 #endif
         }
-        
+
         public static void Log(this object obj, bool value, [CallerMemberName] string caller = "")
         {
 #if UNITY_EDITOR

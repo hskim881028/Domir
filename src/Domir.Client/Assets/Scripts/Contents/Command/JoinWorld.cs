@@ -5,7 +5,7 @@ using Domir.Client.Core.Scope;
 
 namespace Domir.Client.Contents.Command
 {
-    public class JoinWorld : LogicCommand
+    public sealed class JoinWorld : LogicCommand
     {
         public override UniTask<bool> ExecuteAsync()
         {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Domir.Client.Core.UI;
 using Domir.Client.Core.Exceptions;
 using Domir.Client.Core.UI.Contract;
 using Domir.Client.Core.UI.Navigation;

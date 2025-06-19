@@ -17,7 +17,7 @@ namespace Domir.Client.Contents.UI.Static
 
         public QuickSlotStaticUIPresenter(QuickSlotStaticUIView view, IUINavigation navigation) : base(view, navigation) { }
 
-        public async override UniTask ShowAsync(CancellationToken token, UIParam param, bool immediately = false)
+        public override async UniTask ShowAsync(CancellationToken token, UIParam param, bool immediately = false)
         {
             await Awaitable.WaitForSecondsAsync(1, token);
             await base.ShowAsync(token, param, immediately);

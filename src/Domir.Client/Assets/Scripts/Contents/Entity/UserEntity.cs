@@ -17,10 +17,5 @@ namespace Domir.Client.Contents.Entity
                 : Color.blueViolet;
             GetComponent<SpriteRenderer>().color = color;
         }
-
-        private void Update()
-        {
-      
-        }
     }
 }

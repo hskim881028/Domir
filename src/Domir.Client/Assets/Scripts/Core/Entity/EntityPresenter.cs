@@ -1,7 +1,4 @@
 ﻿namespace Domir.Client.Core.Entity
 {
-    public class EntityPresenter
-    {
-        
-    }
+    public class EntityPresenter { }
 }

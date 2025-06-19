@@ -1,8 +1,8 @@
 ﻿using Cysharp.Threading.Tasks;
 using Domir.Client.Contents.UI;
+using Domir.Client.Core.Infrastructure;
 using Domir.Client.Core.Scope;
 using Domir.Shared.Services;
-using UnityEngine;
 
 namespace Domir.Client.Contents.Command
 {
@@ -10,7 +10,7 @@ namespace Domir.Client.Contents.Command
     {
         public Login()
         {
-            Debug.Log("Login");
+            this.Log("Login");
         }
 
         public override async UniTask<bool> ExecuteAsync()
@@ -19,14 +19,14 @@ namespace Domir.Client.Contents.Command
             var response = await loginService.Value.Login();
             if (!NetworkService.HandleResponse(response)) return false;
 
-            Debug.Log($"[StatusCode]: {response.StatusCode}");
+            this.Log($"[StatusCode]: {response.StatusCode}");
             SceneScopeManager.LoadScope(SceneScopeId.Lobby);
             return true;
         }
 
         public override async UniTask PostExecuteAsync()
         {
-            Debug.Log("Show start");
+            // TODO: Need to implement
             // var handle = await _navigation.ShowAsync(SystemUIId.NetworkWaiting);
             await UINavigation.ApplyUILayer(UILayers.Login);
         }
