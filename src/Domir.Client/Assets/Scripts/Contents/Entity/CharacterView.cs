@@ -12,9 +12,7 @@ namespace Domir.Client.Contents.Entity
             this.Log(OwnerClientId);
             base.OnNetworkSpawn();
 
-            var color = OwnerClientId == 0
-                ? Color.green
-                : Color.blueViolet;
+            var color = OwnerClientId == 0 ? Color.green : Color.blueViolet;
             GetComponent<SpriteRenderer>().color = color;
         }
     }

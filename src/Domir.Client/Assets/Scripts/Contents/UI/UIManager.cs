@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Domir.Client.Contents.UI.Generated;
-using Domir.Client.Core.Infrastructure;
 using Domir.Client.Core.Messages;
 using Domir.Client.Core.Scope;
 using Domir.Client.Core.UI;
@@ -25,6 +24,7 @@ namespace Domir.Client.Contents.UI
         private readonly Dictionary<UIId, UIScope> _ui = new();
         private DisposableBag _disposable;
         private UIRootScope _uiRoot;
+        private bool _isDisposed;
 
         public UIManager(
             LifetimeScope rooLifetimeScope,
@@ -82,7 +82,9 @@ namespace Domir.Client.Contents.UI
 
         public void Dispose()
         {
-            this.Log("Dispose");
+            if (_isDisposed) return;
+
+            _isDisposed = true;
             Clear();
             _disposable.Dispose();
         }

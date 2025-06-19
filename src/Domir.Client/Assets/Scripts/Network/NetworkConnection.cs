@@ -6,7 +6,7 @@ using MagicOnion.Client;
 
 namespace Domir.Client.Network
 {
-    public class NetworkConnection : INetworkConnection
+    public sealed class NetworkConnection : INetworkConnection
     {
         private readonly IClientFilter[] _clientFilters = new IClientFilter[2];
         private readonly IResponseHandler _responseHandler;

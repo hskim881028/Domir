@@ -42,7 +42,7 @@ namespace Domir.Client.Contents.Services
             var action = _inputAction.FindAction(actionName);
             if (action == null)
             {
-                Debug.LogWarning($"Action '{actionName}' not found.");
+                this.Log($"Action '{actionName}' not found.");
                 return;
             }
 
@@ -71,10 +71,11 @@ namespace Domir.Client.Contents.Services
             var currentSelected = _eventSystem.currentSelectedGameObject;
             if (currentSelected == null) return;
 
-            Debug.Log($"[currentSelected] : {currentSelected.name} / {currentSelected.tag} / {currentSelected.layer}");
             var selectable = currentSelected.GetComponent<IUISelectable>();
-
-            if (selectable != null) { }
+            if (selectable != null)
+            {
+                // TODO: Need to implement
+            }
         }
 
         private void MoveStarted(InputAction.CallbackContext context)

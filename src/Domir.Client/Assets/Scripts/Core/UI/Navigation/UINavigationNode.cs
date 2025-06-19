@@ -1,5 +1,4 @@
 ﻿using System.Threading;
-using Domir.Client.Core.UI;
 using Domir.Client.Core.UI.Contract;
 
 namespace Domir.Client.Core.UI.Navigation
@@ -39,10 +38,7 @@ namespace Domir.Client.Core.UI.Navigation
 
         public void Dispose()
         {
-            if (_isDisposed)
-            {
-                return;
-            }
+            if (_isDisposed) return;
 
             _isDisposed = true;
             _cts.Cancel();
@@ -52,10 +48,7 @@ namespace Domir.Client.Core.UI.Navigation
 
         private void ResetCancellationTokenSource()
         {
-            if (_isDisposed)
-            {
-                return;
-            }
+            if (_isDisposed) return;
 
             _cts.Cancel();
             _cts.Dispose();

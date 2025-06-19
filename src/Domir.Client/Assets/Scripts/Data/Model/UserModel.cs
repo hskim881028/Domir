@@ -1,6 +1,6 @@
 ﻿namespace Domir.Client.Data.Model
 {
-    public class UserModel : IModel
+    public sealed class UserModel : IModel
     {
         public ModelKey Key { get; }
 

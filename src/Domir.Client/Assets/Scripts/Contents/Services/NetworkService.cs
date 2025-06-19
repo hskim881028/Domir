@@ -14,13 +14,14 @@ using Unity.Netcode;
 
 namespace Domir.Client.Contents.Services
 {
-    public sealed class NetworkService
+    public sealed class NetworkService : IDisposable
     {
         private readonly INetworkConnection _networkConnection;
         private readonly NetworkManager _networkManager;
         private readonly ICommandExecutor _commandExecutor;
         private readonly UserRepository _repository;
         private readonly UserStore _userStore;
+        private bool _isDisposed;
 
         public NetworkService(
             INetworkConnection networkConnection,
@@ -84,6 +85,9 @@ namespace Domir.Client.Contents.Services
 
         public void Dispose()
         {
+            if (_isDisposed) return;
+
+            _isDisposed = true;
             _networkManager.OnConnectionEvent -= OnConnectionEvent;
             _networkManager.OnServerStarted -= OnServerStarted;
         }

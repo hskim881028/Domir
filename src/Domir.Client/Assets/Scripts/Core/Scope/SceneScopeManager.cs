@@ -37,9 +37,9 @@ namespace Domir.Client.Core.Scope
 
         public void Dispose()
         {
-            if (_isDisposed)
-                return;
+            if (_isDisposed) return;
 
+            _isDisposed = true;
             Unload();
         }
 

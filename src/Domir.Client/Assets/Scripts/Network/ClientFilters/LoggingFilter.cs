@@ -6,7 +6,7 @@ using MagicOnion.Client;
 
 namespace Domir.Client.Network.ClientFilters
 {
-    public class LoggingFilter : IClientFilter
+    public sealed class LoggingFilter : IClientFilter
     {
         public async ValueTask<ResponseContext> SendAsync(
             RequestContext context,

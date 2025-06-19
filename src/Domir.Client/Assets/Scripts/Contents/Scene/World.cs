@@ -30,9 +30,9 @@ namespace Domir.Client.Contents.Scene
         }
 
         [Rpc(SendTo.ClientsAndHost)]
-        void PongRpc(int pingCount, string message)
+        private void PongRpc(int pingCount, string message)
         {
-            Debug.Log($"Received pong from server for ping {pingCount} and message {message}");
+            this.Log($"Received pong from server for ping {pingCount} and message {message}");
         }
     }
 }
